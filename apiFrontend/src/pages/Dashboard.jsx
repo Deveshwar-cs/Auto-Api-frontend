@@ -44,7 +44,7 @@ const Dashboard = () => {
           {loading ? (
             <p className="text-gray-500">Loading projects...</p>
           ) : (
-            <ProjectList projects={projects} />
+            <ProjectList projects={projects} setProjects={setProjects} />
           )}
         </div>
       </div>
