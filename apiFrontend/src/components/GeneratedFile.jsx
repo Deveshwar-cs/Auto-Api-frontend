@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import {downloadFile} from "../utils/downloadFile";
 import CodeViewer from "./CodeViewer";
+import {useProject} from "../context/useProject";
 
-const GeneratedFile = ({files}) => {
+const GeneratedFile = () => {
+  const {files} = useProject();
   const [selectedFile, setSelectedFile] = useState(null);
 
   return (

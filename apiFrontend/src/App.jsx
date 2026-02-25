@@ -5,7 +5,9 @@ import Login from "./pages/Login";
 import {setNavigate} from "./utils/navigation";
 import Dashboard from "./pages/Dashboard";
 import Project from "./pages/Project";
-
+import ProjectProvider from "./context/ProjectProvider";
+import SchemaPage from "./pages/SchemaPage";
+import LandingPage from "./pages/LandingPage";
 const App = () => {
   const navigate = useNavigate();
 
@@ -17,7 +19,23 @@ const App = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
-      <Route path="/project/:projectId" element={<Project />} />
+      <Route path="/landingPage" element={<LandingPage />} />
+      <Route
+        path="/schema"
+        element={
+          <ProjectProvider>
+            <SchemaPage />
+          </ProjectProvider>
+        }
+      />
+      <Route
+        path="/project/:projectId"
+        element={
+          <ProjectProvider>
+            <Project />
+          </ProjectProvider>
+        }
+      />
     </Routes>
   );
 };

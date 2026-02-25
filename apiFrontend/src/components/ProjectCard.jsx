@@ -19,7 +19,6 @@ const ProjectCard = ({project, onEdit, onDelete}) => {
         >
           Edit
         </button>
-
         <button
           onClick={onDelete}
           className="text-red-500 font-semibold hover:text-red-700"

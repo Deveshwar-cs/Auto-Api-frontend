@@ -1,33 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import api from "../api/axios.js";
 import CollectionList from "../components/CollectionList.jsx";
 import CollectionForm from "../components/CollectionsForm.jsx";
 import GeneratedFile from "../components/GeneratedFile.jsx";
+import {useNavigate} from "react-router-dom";
 
 const Project = () => {
-  const {projectId} = useParams();
-  const [collections, setCollections] = useState([]);
-  const [files, setFiles] = useState([]);
-
-  const fetchCollections = async () => {
-    const res = await api.get(`collection/getCollection/${projectId}`);
-    setCollections(res.data.data);
-  };
-
-  useEffect(() => {
-    const fetchGeneratedFiles = async () => {
-      const res = await api.get(`/generated-files/${projectId}`);
-      setFiles(res.data.files);
-    };
-    const fetchCollections = async () => {
-      const res = await api.get(`collection/getCollection/${projectId}`);
-      setCollections(res.data.data);
-    };
-    fetchCollections();
-    fetchGeneratedFiles();
-  }, [projectId]);
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-linear-to-br from-indigo-50 to-purple-100 py-14 px-6">
       <div className="max-w-6xl mx-auto">
@@ -46,7 +23,9 @@ const Project = () => {
           <h2 className="text-xl font-semibold text-indigo-600 mb-6">
             Create New Collection
           </h2>
-          <CollectionForm projectId={projectId} onCreated={fetchCollections} />
+
+          {/* ❌ no props */}
+          <CollectionForm />
         </div>
 
         {/* List Card */}
@@ -54,13 +33,25 @@ const Project = () => {
           <h2 className="text-xl font-semibold text-indigo-600 mb-6">
             Your Collections
           </h2>
-          <CollectionList collections={collections} />
+
+          {/* ❌ no props */}
+          <CollectionList />
+
+          <div className="text-center mt-8 mb-8">
+            <button
+              onClick={() => navigate("/schema")}
+              className="px-6 py-3 bg-indigo-600 text-white rounded-xl shadow-lg hover:bg-indigo-700 transition"
+            >
+              View Schema Diagram
+            </button>
+          </div>
 
           <h2 className="text-2xl font-bold mt-16 mb-6">
             Generated Backend Files
           </h2>
 
-          <GeneratedFile files={files} />
+          {/* ❌ no props */}
+          <GeneratedFile />
         </div>
       </div>
     </div>

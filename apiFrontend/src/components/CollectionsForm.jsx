@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import FieldRow from "./FieldRow.jsx";
 import api from "../api/axios.js";
+import {useProject} from "../context/useProject";
 
 const emptyField = {
   name: "",
@@ -8,18 +9,34 @@ const emptyField = {
   required: false,
   enum: "",
   ref: "",
+  itemsType: "String",
   default: "",
 };
 
-const CollectionForm = ({projectId, onCreated}) => {
+const CollectionForm = () => {
+  const {projectId, fetchCollections, fetchGeneratedFiles} = useProject();
+
   const [collectionName, setCollectionName] = useState("");
   const [fields, setFields] = useState([{...emptyField}]);
   const [loading, setLoading] = useState(false);
 
+  const parseEnum = (value) => {
+    if (typeof value !== "string") return undefined;
+
+    const arr = value
+      .split(",")
+      .map((v) => v.trim())
+      .filter(Boolean);
+
+    return arr.length ? arr : undefined;
+  };
+
   const handleChange = (i, key, value) => {
-    const updated = [...fields];
-    updated[i][key] = value;
-    setFields(updated);
+    setFields((prev) =>
+      prev.map((field, index) =>
+        index === i ? {...field, [key]: value} : field,
+      ),
+    );
   };
 
   const handleAdd = () => setFields([...fields, {...emptyField}]);
@@ -36,20 +53,31 @@ const CollectionForm = ({projectId, onCreated}) => {
         name: f.name,
         type: f.type,
         required: f.required,
+        itemsType: f.itemsType,
+        enum: parseEnum(f.enum),
+        ref: f.ref,
       })),
     };
 
-    await api.post(`/collection/createCollection/${projectId}`, payload);
+    try {
+      await api.post(`/collection/createCollection/${projectId}`, payload);
 
-    setCollectionName("");
-    setFields([{...emptyField}]);
-    onCreated();
+      // reset form
+      setCollectionName("");
+      setFields([{...emptyField}]);
+
+      // 🔥 refresh global state
+      await fetchCollections();
+      await fetchGeneratedFiles();
+    } catch (err) {
+      console.error(err);
+    }
+
     setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Collection Name */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Collection Name
@@ -63,7 +91,6 @@ const CollectionForm = ({projectId, onCreated}) => {
         />
       </div>
 
-      {/* Fields */}
       <div className="space-y-6">
         {fields.map((field, i) => (
           <FieldRow
@@ -77,7 +104,6 @@ const CollectionForm = ({projectId, onCreated}) => {
         ))}
       </div>
 
-      {/* Buttons */}
       <div className="flex items-center gap-4 pt-4">
         <button
           type="button"

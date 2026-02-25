@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import api from "../api/axios";
+import useProjectStore from "../context/useProjectStore";
 
-const ProjectForm = ({onProjectCreated}) => {
+const ProjectForm = () => {
+  const {createProject} = useProjectStore();
   const [form, setForm] = useState({
     projectName: "",
     port: 5000,
@@ -28,8 +29,7 @@ const ProjectForm = ({onProjectCreated}) => {
     setLoading(true);
 
     try {
-      const res = await api.post("/projects/createProject", form);
-      onProjectCreated(res.data);
+      createProject(form);
 
       setForm({
         projectName: "",

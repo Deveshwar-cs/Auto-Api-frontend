@@ -1,27 +1,33 @@
-import React from "react";
+import useDelete from "../context/useDelete";
 
-const DeleteModal = ({project, onCancel, onConfirm}) => {
+const DeleteModal = () => {
+  const {deleteState, closeDelete} = useDelete();
+
+  if (!deleteState) return null;
+
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-8 w-96">
-        <h3 className="text-xl font-semibold mb-4 text-gray-800">
-          Delete Project
-        </h3>
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div className="bg-white rounded-2xl shadow-xl p-6 w-100 animate-scaleIn">
+        <h2 className="text-xl font-semibold text-gray-800">
+          {deleteState.title}
+        </h2>
 
-        <p className="text-gray-600 mb-6">
-          Are you sure you want to delete{" "}
-          <span className="font-bold">{project.projectName}</span>? This action
-          cannot be undone.
-        </p>
+        <p className="text-gray-500 mt-2">{deleteState.message}</p>
 
-        <div className="flex justify-end gap-4">
-          <button onClick={onCancel} className="px-4 py-2 rounded-lg border">
+        <div className="flex justify-end gap-3 mt-6">
+          <button
+            onClick={closeDelete}
+            className="px-4 py-2 rounded-lg border hover:bg-gray-100"
+          >
             Cancel
           </button>
 
           <button
-            onClick={onConfirm}
-            className="px-4 py-2 rounded-lg bg-red-500 text-white"
+            onClick={() => {
+              deleteState.onConfirm();
+              closeDelete();
+            }}
+            className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
           >
             Delete
           </button>
