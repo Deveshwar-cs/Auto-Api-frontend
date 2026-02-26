@@ -1,11 +1,10 @@
-import {StrictMode} from "react";
 import "./index.css";
 import {createRoot} from "react-dom/client";
 import App from "./App.jsx";
 import {BrowserRouter} from "react-router-dom";
-import DeleteProvider from "./context/DeleteProvider";
-import DeleteModal from "./components/DeleteModal";
-import {ProjectStoreProvider} from "./context/ProjectStore.jsx";
+import DeleteProvider from "./shared/store/DeleteProvider.jsx";
+import DeleteModal from "./shared/components/DeleteModal.jsx";
+import {ProjectStoreProvider} from "./features/project/store/ProjectStore.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
