@@ -18,7 +18,6 @@ const EditModal = ({project, onCancel, onSave}) => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-  console.log(form);
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto">

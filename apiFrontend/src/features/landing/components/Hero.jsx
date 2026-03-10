@@ -1,10 +1,11 @@
 import {useRef} from "react";
 import VariableProximity from "./VariableProximity.jsx";
 import "@fontsource/inter";
+import {useNavigate} from "react-router-dom";
 
 const Hero = () => {
   const containerRef = useRef(null);
-
+  const navigate = useNavigate();
   return (
     <section className="bg-slate-950 text-white py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-14 items-center">
@@ -43,7 +44,10 @@ const Hero = () => {
           </p>
 
           <div className="flex gap-4 mt-8 flex-wrap">
-            <button className="bg-blue-500 hover:bg-blue-600 transition px-6 py-3 rounded-lg font-medium shadow-lg shadow-blue-500/20">
+            <button
+              onClick={() => navigate("/register")}
+              className="bg-blue-500 hover:bg-blue-600 transition px-6 py-3 rounded-lg font-medium shadow-lg shadow-blue-500/20"
+            >
               Get Started Free
             </button>
 
@@ -54,8 +58,17 @@ const Hero = () => {
         </div>
 
         {/* RIGHT CODE CARD */}
-        <div className="bg-slate-900/70 backdrop-blur border border-slate-700 rounded-xl p-6 shadow-xl">
-          <pre className="text-green-400 text-sm whitespace-pre-wrap">
+        <div className="bg-[#3232f4] rounded-xl shadow-2xl border border-gray-800 overflow-hidden">
+          {/* Terminal header */}
+          <div className="flex items-center gap-2 px-4 py-2 bg-[#3232f4] border-b border-gray-700">
+            <span className="w-3 h-3 rounded-full bg-red-500"></span>
+            <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
+            <span className="w-3 h-3 rounded-full bg-green-500"></span>
+            <p className="ml-4 text-xs text-gray-400">UserSchema.js</p>
+          </div>
+
+          {/* Code */}
+          <pre className="p-6 text-white bg-black text-sm font-mono leading-relaxed">
             {`{
   "firstname": "String",
   "email": "String",

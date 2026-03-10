@@ -24,6 +24,18 @@ const ProjectProvider = ({children}) => {
     setFiles(res.data.files);
   }, [projectId]);
 
+  const generateFiles = useCallback(
+    async (collectionId) => {
+      if (!projectId) return;
+
+      const res = await api.post(
+        `collection/${projectId}/${collectionId}/generate`,
+      );
+      setFiles(res.data.data);
+    },
+    [projectId],
+  );
+
   const deleteCollection = useCallback(
     async (collectionId) => {
       try {
@@ -62,6 +74,7 @@ const ProjectProvider = ({children}) => {
       fetchGeneratedFiles,
       deleteCollection,
       setCollections,
+      generateFiles,
     }),
     [
       collections,
@@ -71,6 +84,7 @@ const ProjectProvider = ({children}) => {
       projectId,
       deleteCollection,
       setCollections,
+      generateFiles,
     ],
   );
 

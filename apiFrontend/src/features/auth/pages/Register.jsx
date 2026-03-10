@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import api from "../../../services/api.js";
-import {useNavigate} from "react-router-dom";
-import {Link} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
+import bg from "../images/bg5.jpg";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -37,66 +37,88 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-3xl shadow-xl p-10">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          Create Your Account
-        </h2>
+    <div
+      className="min-h-screen flex relative text-white"
+      style={{background: "var(--color-slate-950)"}}
+    >
+      {/* BACKGROUND IMAGE */}
+      <img
+        src={bg}
+        alt="bg"
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+      />
 
-        {error && (
-          <p className="mb-4 text-center text-red-500 font-medium">{error}</p>
-        )}
+      {/* LEFT HERO TEXT */}
+      <div className="hidden lg:flex flex-col justify-center px-20 relative z-10 w-1/2">
+        <h1
+          style={{fontFamily: "samurai"}}
+          className="text-5xl font-samurai font-bold mb-6"
+        >
+          Start your journey
+        </h1>
+        <p className="text-gray-300 max-w-md ">
+          Join thousands of developers building scalable products with our
+          platform.
+        </p>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="text"
-            name="name"
-            placeholder="Full name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            className="w-full px-5 py-4 rounded-2xl border border-gray-300 focus:border-black focus:ring-2 focus:ring-black outline-none transition"
-          />
+      {/* RIGHT REGISTER PANEL */}
+      <div className="flex items-center justify-center w-full lg:w-1/2 relative z-10 p-6">
+        <div className="w-full max-w-md bg-slate-950 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-10">
+          <h2 className="text-3xl font-bold mb-2">Create account</h2>
+          <p className="text-gray-400 mb-6">It takes less than a minute</p>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email address"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="w-full px-5 py-4 rounded-2xl border border-gray-300 focus:border-black focus:ring-2 focus:ring-black outline-none transition"
-          />
+          {error && (
+            <p className="mb-4 text-center text-red-400 font-medium">{error}</p>
+          )}
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-            className="w-full px-5 py-4 rounded-2xl border border-gray-300 focus:border-black focus:ring-2 focus:ring-black outline-none transition"
-          />
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <input
+              type="text"
+              name="name"
+              placeholder="Full name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600"
+            />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-4 rounded-2xl bg-black text-white font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
-          >
-            {loading ? "Registering..." : "Register"}
-          </button>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address"
+              value={form.email}
+              onChange={handleChange}
+              required
+              className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600"
+            />
 
-          {/* 👇 Login Link */}
-          <p className="text-center text-gray-600 text-sm">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-black font-semibold hover:underline"
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              required
+              className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600"
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-slate-900 text-white py-3 rounded-lg shadow-lg hover:bg-slate-800 transition disabled:opacity-50"
             >
-              Login here
-            </Link>
-          </p>
-        </form>
+              {loading ? "Registering..." : "Create account"}
+            </button>
+
+            <p className="text-center text-gray-400 text-sm">
+              Already have an account?{" "}
+              <Link to="/login" className="text-[#3232f4] font-semibold">
+                Login here
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

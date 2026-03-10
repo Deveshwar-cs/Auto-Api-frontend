@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* @plugin "tailwindcss-animate"; */
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "Samurai";
+  src: url("./assets/fonts/EdoSZ.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 @theme {
   --font-robotoMono: "Roboto Mono", monospace;
 }

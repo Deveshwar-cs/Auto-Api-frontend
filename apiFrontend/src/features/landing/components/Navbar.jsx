@@ -1,10 +1,12 @@
 import {useState} from "react";
 import icon from "../image/icon.svg";
 import gitLogo from "../image/github_logo.svg";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
+  const navigate = useNavigate();
 
   const navItems = [
     {
@@ -99,7 +101,10 @@ const Navbar = () => {
           GitHub
         </button>
 
-        <button className="bg-[#55A6F6] px-4 py-2 text-[#161A1D] rounded-lg text-sm hover:scale-105 hover:shadow-lg transition">
+        <button
+          onClick={() => navigate("/register")}
+          className="bg-[#55A6F6] px-4 py-2 text-[#161A1D] rounded-lg text-sm hover:scale-105 hover:shadow-lg transition"
+        >
           Get started
         </button>
       </div>
@@ -123,7 +128,10 @@ const Navbar = () => {
             GitHub
           </button>
 
-          <button className="bg-[#55A6F6] px-4 py-2 text-[#161A1D] rounded-lg text-sm">
+          <button
+            onClick={() => navigate("/register")}
+            className="bg-[#55A6F6] px-4 py-2 text-[#161A1D] rounded-lg text-sm"
+          >
             Get started
           </button>
         </div>

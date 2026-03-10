@@ -8,10 +8,27 @@ import Pricing from "../components/Pricing";
 import FAQ from "../components/FAQ";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
+import {useEffect} from "react";
+import Lenis from "@studio-freight/lenis";
 
 function LandingPage() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2, // scroll smoothness
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+
   return (
-    <div className="font-robotoMono ">
+    <div className="font-robotoMono">
       <Navbar />
       <Hero />
       <Features />
