@@ -33,6 +33,16 @@ const ProjectModal = ({isOpen, onClose}) => {
 
     try {
       await createProject(form);
+      setForm({
+        projectName: "",
+        port: 5000,
+        mongoUri: "",
+        jwtSecret: "",
+        apiPrefix: "/api",
+        enableAuth: true,
+        enableCors: false,
+        enableLogger: false,
+      });
       onClose(); // 👈 Close modal after success
     } finally {
       setLoading(false);

@@ -1,5 +1,4 @@
 import axios from "axios";
-import {navigateTo} from "../utils/navigation";
 
 const api = axios.create({
   baseURL: "http://localhost:5001/api",
@@ -11,6 +10,7 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
@@ -21,8 +21,11 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
-      navigateTo("/login");
+
+      // redirect to login
+      window.location.href = "/login";
     }
+
     alert(message);
     throw error;
   },

@@ -77,4 +77,12 @@ export const useProject = create((set, get) => ({
       get().fetchProject(projectId),
     ]);
   },
+  generateAllFiles: async (projectId) => {
+    await api.post(`collection/${projectId}/generate-all`);
+    await Promise.all([
+      get().fetchCollections(projectId),
+      get().fetchGeneratedFiles(projectId),
+      get().fetchProject(projectId),
+    ]);
+  },
 }));

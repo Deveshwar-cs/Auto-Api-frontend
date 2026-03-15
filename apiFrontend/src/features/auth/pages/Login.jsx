@@ -3,6 +3,7 @@ import api from "../../../services/api";
 import {useNavigate, Link} from "react-router-dom";
 import bg from "../images/bg2.jpg";
 import icon from "../../landing/image/icon.svg";
+import {GoogleLogin} from "@react-oauth/google";
 
 const Login = () => {
   const [formData, setForm] = useState({
@@ -10,9 +11,26 @@ const Login = () => {
     password: "",
   });
 
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  // Google login handler
+  const handleGoogleLogin = async (credentialResponse) => {
+    if (!credentialResponse?.credential) return;
+
+    try {
+      const res = await api.post("/auth/google", {
+        token: credentialResponse.credential,
+      });
+
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.response?.data?.message || "Google login failed");
+    }
+  };
+
+  // Input change
   const handleChange = (e) => {
     setForm((prev) => ({
       ...prev,
@@ -20,6 +38,7 @@ const Login = () => {
     }));
   };
 
+  // Normal login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,8 +47,8 @@ const Login = () => {
       const res = await api.post("/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
-    } catch {
-      alert("Invalid credentials");
+    } catch (err) {
+      alert(err.response?.data?.message || "Invalid credentials");
     } finally {
       setLoading(false);
     }
@@ -47,25 +66,24 @@ const Login = () => {
           alt="background"
           className="absolute inset-0 w-full h-full object-cover opacity-70"
         />
-        <div className="absolute top-8 left-8 text-xl flex items-center gap-2 font-semibold text-white">
-          <img src={icon} alt="main_icon" className="w-6 h-6" />
-          <h1 className="text-xl font-bold text-white">AutoAPI</h1>
+
+        <div className="absolute top-8 left-8 flex items-center gap-2">
+          <img src={icon} alt="logo" className="w-6 h-6" />
+          <h1 className="text-xl font-bold">AutoAPI</h1>
         </div>
       </div>
 
-      {/* RIGHT FORM */}
-      <div className="flex items-center justify-center w-full lg:w-1/2 px-4 py-10 sm:px-6">
-        <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10">
+      {/* RIGHT LOGIN PANEL */}
+      <div className="flex items-center justify-center w-full lg:w-1/2 px-4 py-10">
+        <div className="w-full max-w-md bg-slate-900/70 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-8">
           {/* HEADER */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
+          <div className="flex justify-between items-start mb-6">
             <div>
               <p className="text-gray-400 text-sm">
                 Welcome to{" "}
                 <span className="text-green-400 font-semibold">AutoAPI</span>
               </p>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-1 text-white">
-                Sign in
-              </h1>
+              <h1 className="text-3xl font-bold mt-1">Sign in</h1>
             </div>
 
             <p className="text-sm text-gray-400">
@@ -76,81 +94,78 @@ const Login = () => {
             </p>
           </div>
 
-          {/* SOCIAL BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-6">
-            <button
-              type="button"
-              className="flex-1 flex items-center justify-center gap-2 bg-white/10 py-3 rounded-lg hover:bg-white/20 transition"
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
-                className="w-5"
-                alt="google"
-              />
-              Sign in with Google
-            </button>
+          {/* GOOGLE LOGIN */}
+          <div className="flex justify-center mb-6">
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => console.log("Google Login Failed")}
+              theme="filled_black"
+              size="large"
+              shape="pill"
+              text="signin_with"
+            />
+          </div>
 
-            <div className="flex gap-3">
-              <button
-                type="button"
-                className="flex-1 sm:flex-none w-full sm:w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition"
-              >
-                F
-              </button>
-
-              <button
-                type="button"
-                className="flex-1 sm:flex-none w-full sm:w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition"
-              >
-                A
-              </button>
-            </div>
+          {/* DIVIDER */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 h-px bg-white/10"></div>
+            <span className="text-gray-400 text-sm">OR</span>
+            <div className="flex-1 h-px bg-white/10"></div>
           </div>
 
           {/* FORM */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} autoComplete="on" className="space-y-5">
+            {/* EMAIL */}
             <div>
               <label className="text-sm text-gray-400">
-                Enter your username or email address
+                Enter your email address
               </label>
+
               <input
                 type="email"
                 name="email"
-                placeholder="Username or email address"
+                placeholder="Email address"
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="mt-2 w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600"
+                className="mt-2 w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
+            {/* PASSWORD */}
             <div>
               <label className="text-sm text-gray-400">
-                Enter your Password
+                Enter your password
               </label>
+
               <input
                 type="password"
                 name="password"
                 placeholder="Password"
+                autoComplete="current-password"
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="mt-2 w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-600"
+                className="mt-2 w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
+            {/* FORGOT PASSWORD */}
             <p className="text-right text-slate-400 text-sm cursor-pointer hover:text-white">
-              Forgot Password
+              Forgot Password?
             </p>
 
+            {/* LOGIN BUTTON */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-slate-900 text-white py-3 rounded-lg shadow-lg hover:bg-slate-800 transition disabled:opacity-50"
+              className="w-full bg-linear-to-r from-green-500 to-emerald-500 py-3 rounded-lg font-semibold shadow-lg hover:opacity-90 transition disabled:opacity-50"
             >
-              {loading ? "Logging in..." : "Sign in"}
+              {loading ? "Signing in..." : "Sign in"}
             </button>
 
+            {/* REGISTER LINK */}
             <p className="text-center text-gray-400 text-sm">
               Don’t have an account?{" "}
               <Link to="/register" className="text-green-400 font-semibold">

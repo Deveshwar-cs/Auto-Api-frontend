@@ -4,17 +4,18 @@ import useDelete from "../../../shared/store/useDelete";
 import {useProject} from "../../../shared/store/useProject";
 import CollectionModal from "./CollectionModal";
 import {useParams} from "react-router-dom";
+import ConfirmModal from "./ConfirmModal";
 
 const CollectionsTab = () => {
   const {projectId} = useParams();
 
   const collections = useProject((state) => state.collections);
-  const generateAllCollections = useProject(
-    (state) => state.generateAllCollections,
-  );
+  const generateAllFiles = useProject((state) => state.generateAllFiles);
+
   const deleteCollection = useProject((state) => state.deleteCollection);
   const generateFiles = useProject((state) => state.generateFiles);
   const fetchCollections = useProject((state) => state.fetchCollections);
+  const [showGenerateConfirm, setShowGenerateConfirm] = useState(false);
 
   const {openDelete} = useDelete();
 
@@ -88,7 +89,7 @@ const CollectionsTab = () => {
 
         <div className="flex gap-3">
           <button
-            onClick={() => generateAllCollections(projectId)}
+            onClick={() => setShowGenerateConfirm(true)}
             className="flex items-center gap-2 bg-[#241A40]
             border border-purple-800/30
             hover:bg-purple-900/20
@@ -97,6 +98,17 @@ const CollectionsTab = () => {
             <FileCode size={16} />
             Generate All
           </button>
+          {showGenerateConfirm && (
+            <ConfirmModal
+              title="Generate All Files?"
+              message="Do you want to generate files for all collections in this project?"
+              onCancel={() => setShowGenerateConfirm(false)}
+              onConfirm={() => {
+                generateAllFiles(projectId);
+                setShowGenerateConfirm(false);
+              }}
+            />
+          )}
 
           <button
             onClick={() => {
