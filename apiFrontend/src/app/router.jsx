@@ -20,13 +20,17 @@ import DocsTab from "../features/project/components/DocsTab";
 import SettingsTab from "../features/project/components/SettingsTab";
 import SettingsPage from "../features/project/pages/SettingsPage";
 
-import ProjectProvider from "../shared/store/ProjectProvider";
+import Docs from "../features/docs/page/Docs";
 
 const AppRouter = () => {
   const route = createBrowserRouter([
     {
       path: "/",
       element: <LandingPage />,
+    },
+    {
+      path: "/docs",
+      element: <Docs />,
     },
     {
       path: "/register",
@@ -54,11 +58,7 @@ const AppRouter = () => {
         },
         {
           path: "projects/:projectId",
-          element: (
-            <ProjectProvider>
-              <ProjectWorkspace />
-            </ProjectProvider>
-          ),
+          element: <ProjectWorkspace />,
           children: [
             {
               index: true,

@@ -14,24 +14,28 @@ const emptyField = {
 
 const CollectionForm = ({onSuccess, collection}) => {
   const {projectId} = useParams();
-
   const {addCollection, updateCollection, fetchCollections} = useProject();
 
+  // ✅ Initialize state directly from props (NO useEffect)
   const [collectionName, setCollectionName] = useState(
     collection?.collectionName || "",
   );
 
-  const [fields, setFields] = useState(
-    collection?.fields?.length
-      ? collection.fields.map((f) => ({
-          ...f,
-          enum: Array.isArray(f.enum) ? f.enum.join(", ") : "",
-        }))
-      : [{...emptyField}],
-  );
+  const [isProtected, setIsProtected] = useState(collection?.protect || false);
+
+  const [fields, setFields] = useState(() => {
+    if (collection?.fields?.length) {
+      return collection.fields.map((f) => ({
+        ...f,
+        enum: Array.isArray(f.enum) ? f.enum.join(", ") : "",
+      }));
+    }
+    return [{...emptyField}];
+  });
 
   const [loading, setLoading] = useState(false);
 
+  // ✅ Convert enum string → array
   const parseEnum = (value) => {
     const arr = value
       .split(",")
@@ -41,6 +45,7 @@ const CollectionForm = ({onSuccess, collection}) => {
     return arr.length ? arr : undefined;
   };
 
+  // ✅ Field change
   const handleChange = (i, key, value) => {
     setFields((prev) =>
       prev.map((field, index) =>
@@ -49,17 +54,19 @@ const CollectionForm = ({onSuccess, collection}) => {
     );
   };
 
+  // ✅ Add field
   const handleAdd = () => {
     setFields([...fields, {...emptyField}]);
   };
 
+  // ✅ Remove field
   const handleRemove = (i) => {
     setFields(fields.filter((_, index) => index !== i));
   };
 
+  // ✅ Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     const payloadFields = fields.map((f) => ({
@@ -73,14 +80,20 @@ const CollectionForm = ({onSuccess, collection}) => {
 
     try {
       if (collection) {
-        // UPDATE COLLECTION
+        // 🔥 UPDATE
         await updateCollection(projectId, collection._id, {
           collectionName,
+          protect: isProtected,
           fields: payloadFields,
         });
       } else {
-        // CREATE COLLECTION
-        await addCollection(projectId, collectionName, payloadFields);
+        // 🔥 CREATE
+        await addCollection(
+          projectId,
+          collectionName,
+          payloadFields,
+          isProtected,
+        );
       }
 
       await fetchCollections(projectId);
@@ -95,6 +108,7 @@ const CollectionForm = ({onSuccess, collection}) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Collection Name */}
       <div>
         <label className="text-sm text-gray-300">Collection Name</label>
 
@@ -107,6 +121,30 @@ const CollectionForm = ({onSuccess, collection}) => {
         />
       </div>
 
+      {/* 🔐 Protected Toggle */}
+      <div className="bg-[#241A40] border border-purple-900/30 rounded-2xl p-5">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={isProtected}
+            onChange={(e) => setIsProtected(e.target.checked)}
+            className="mt-1 h-5 w-5 rounded-md bg-[#1B1330] border-purple-700
+                       text-purple-600 focus:ring-purple-600"
+          />
+
+          <div>
+            <p className="text-sm font-semibold text-white">
+              Protected Routes 🔐
+            </p>
+
+            <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+              If enabled, all routes will require authentication.
+            </p>
+          </div>
+        </label>
+      </div>
+
+      {/* Fields */}
       <div className="space-y-6">
         {fields.map((field, i) => (
           <FieldRow
@@ -120,6 +158,7 @@ const CollectionForm = ({onSuccess, collection}) => {
         ))}
       </div>
 
+      {/* Buttons */}
       <div className="flex gap-4">
         <button
           type="button"

@@ -8,42 +8,65 @@ const Navbar = () => {
   const [active, setActive] = useState(null);
   const navigate = useNavigate();
 
+  const openGithub = () => {
+    window.open("https://github.com/Deveshwar-cs/Auto-Api-frontend", "_blank");
+  };
+
   const navItems = [
     {
       label: "Features",
       bgColor: "#0D0716",
       textColor: "#fff",
       links: ["Visual Builder", "Auto Generate", "Export Code"],
+      href: "#features",
     },
     {
       label: "How it works",
       bgColor: "#170D27",
       textColor: "#fff",
       links: ["Define Schema", "Generate Backend", "Deploy"],
+      href: "#steps",
     },
     {
       label: "Pricing",
       bgColor: "#271E37",
       textColor: "#fff",
-      links: ["Free", "Pro", "Enterprise"],
+      links: ["Free"],
+      href: "#pricing",
     },
     {
       label: "Docs",
       bgColor: "#1A2233",
       textColor: "#fff",
       links: ["API Docs", "Guides"],
+      href: "/docs",
     },
   ];
 
+  const handleLinkClick = (href) => {
+    if (href.startsWith("#")) {
+      const section = document.querySelector(href);
+      if (section) {
+        section.scrollIntoView({behavior: "smooth"});
+      }
+    } else {
+      navigate(href);
+    }
+    setOpen(false);
+  };
+
   return (
-    <nav className="flex items-center justify-between px-6 md:px-12 lg:px-30.5 py-4 bg-slate-950 text-white sticky top-0 z-50 shadow-md backdrop-blur-md">
+    <nav className="flex items-center justify-between px-6 md:px-12 lg:px-30 py-4 bg-slate-950 text-white sticky top-0 z-50 shadow-md backdrop-blur-md">
       {/* Logo */}
-      <div className="flex items-center gap-2 cursor-pointer">
+      <div
+        className="flex items-center gap-2 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         <img src={icon} alt="main_icon" className="w-6 h-6" />
         <h1 className="text-xl font-bold text-blue-400">AutoAPI</h1>
       </div>
 
-      {/* Desktop Menu with Card Effect */}
+      {/* Desktop Menu */}
       <div className="hidden md:flex gap-8 text-sm relative">
         {navItems.map((item, i) => (
           <div
@@ -56,35 +79,34 @@ const Navbar = () => {
               {item.label}
             </button>
 
-            {/* Dropdown Card */}
             {active === i && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5">
-                {/* arrow */}
+                {/* Arrow */}
                 <div
                   className="absolute left-1/2 -translate-x-1/2 top-1 w-3 h-3 rotate-45 border border-white/10"
                   style={{background: item.bgColor}}
-                ></div>
+                />
 
-                {/* card */}
+                {/* Dropdown */}
                 <div
-                  className="p-5 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,.5)] backdrop-blur-2xl border border-white/10 animate-dropdown relative overflow-hidden"
+                  className="p-5 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,.5)] backdrop-blur-2xl border border-white/10 relative overflow-hidden"
                   style={{
                     background: `linear-gradient(135deg, ${item.bgColor}, #111827)`,
                     color: item.textColor,
                     minWidth: "260px",
                   }}
                 >
-                  {/* glow overlay */}
                   <div className="absolute inset-0 opacity-30 bg-linear-to-br from-blue-500/20 via-transparent to-purple-500/20 pointer-events-none"></div>
 
                   <div className="flex flex-col gap-1 relative">
                     {item.links.map((link, idx) => (
-                      <a
+                      <button
                         key={idx}
-                        className="px-3 py-2 rounded-lg hover:bg-white/5 hover:translate-x-1 transition-all cursor-pointer opacity-90 hover:opacity-100"
+                        onClick={() => handleLinkClick(item.href)}
+                        className="text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:translate-x-1 transition-all opacity-90 hover:opacity-100"
                       >
                         {link}
-                      </a>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -96,7 +118,10 @@ const Navbar = () => {
 
       {/* Desktop Buttons */}
       <div className="hidden md:flex items-center gap-4">
-        <button className="bg-[#161A1D] flex items-center gap-2 px-4 py-2 border rounded-lg text-sm hover:bg-[#0f1113] hover:scale-105 transition">
+        <button
+          onClick={openGithub}
+          className="bg-[#161A1D] flex items-center gap-2 px-4 py-2 border rounded-lg text-sm hover:bg-[#0f1113] hover:scale-105 transition"
+        >
           <img src={gitLogo} alt="gitlogo" className="w-4 h-4" />
           GitHub
         </button>
@@ -116,14 +141,21 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="absolute top-full left-0 w-full bg-[#161A1D] flex flex-col items-center gap-4 py-6 md:hidden animate-fade">
+        <div className="absolute top-full left-0 w-full bg-[#161A1D] flex flex-col items-center gap-4 py-6 md:hidden">
           {navItems.map((item, i) => (
-            <a key={i} className="hover:text-blue-400">
+            <button
+              key={i}
+              onClick={() => handleLinkClick(item.href)}
+              className="hover:text-blue-400"
+            >
               {item.label}
-            </a>
+            </button>
           ))}
 
-          <button className="bg-[#161A1D] flex items-center gap-2 px-4 py-2 border rounded-lg text-sm">
+          <button
+            onClick={openGithub}
+            className="bg-[#161A1D] flex items-center gap-2 px-4 py-2 border rounded-lg text-sm hover:bg-[#0f1113]"
+          >
             <img src={gitLogo} alt="gitlogo" className="w-4 h-4" />
             GitHub
           </button>

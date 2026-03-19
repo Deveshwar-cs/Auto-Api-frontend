@@ -27,11 +27,38 @@ export const useProject = create((set, get) => ({
       set({loading: false});
     }
   },
-  addCollection: async (projectId, collectionName, fields = []) => {
+  downloadProject: async (projectId) => {
+    try {
+      const res = await api.get(`/generated-files/download/${projectId}`, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "project.zip";
+
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.log("Download failed:", err);
+    }
+  },
+  addCollection: async (
+    projectId,
+    collectionName,
+    fields = [],
+    isProtected,
+  ) => {
     try {
       const res = await api.post(`/collection/createCollection/${projectId}`, {
         collectionName,
         fields,
+        protect: isProtected,
       });
       set((state) => ({
         collections: [...state.collections, res.data.data],

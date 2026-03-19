@@ -15,7 +15,10 @@ const Steps = () => {
   ];
 
   return (
-    <section className="bg-slate-950 text-white px-8 py-24 text-center">
+    <section
+      id="steps"
+      className="bg-slate-950 text-white px-8 py-24 text-center"
+    >
       <h2 className="text-[36px] font-bold mb-4">
         Launch Your Backend in 3 Steps
       </h2>
