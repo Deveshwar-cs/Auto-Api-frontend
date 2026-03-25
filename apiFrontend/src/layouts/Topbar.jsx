@@ -19,7 +19,7 @@ import useProjectStore from "../features/project/store/useProjectStore";
 
 import socket from "../socket";
 
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = "https://auto-api-backend.onrender.com";
 
 /* notification config */
 const notificationConfig = {
