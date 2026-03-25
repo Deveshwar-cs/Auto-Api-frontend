@@ -6,7 +6,7 @@ const Sidebar = () => {
   const name = useSettingStore((state) => state.name);
   const profilePhoto = useSettingStore((state) => state.profilePhoto);
 
-  const BASE_URL = "http://localhost:5001";
+  const BASE_URL = "https://auto-api-backend.onrender.com";
 
   return (
     <aside className="w-64 bg-[#0B0513] border-r border-purple-900/20 flex flex-col">
