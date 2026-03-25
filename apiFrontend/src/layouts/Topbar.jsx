@@ -1,13 +1,63 @@
-import {Search, Bell, Settings, LogOut} from "lucide-react";
+import {
+  Search,
+  Bell,
+  Settings,
+  LogOut,
+  FolderPlus,
+  Layers,
+  Trash,
+  Edit,
+  Share2,
+  AlertCircle,
+} from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useState, useRef, useEffect} from "react";
 
 import useSettingStore from "../features/project/store/useSettingStore";
 import useNotificationStore from "../features/project/store/useNotificationStore";
+import useProjectStore from "../features/project/store/useProjectStore";
 
 import socket from "../socket";
 
 const BASE_URL = "http://localhost:5001";
+
+/* notification config */
+const notificationConfig = {
+  PROJECT_CREATED: {
+    icon: <FolderPlus size={16} />,
+    color: "text-green-400",
+  },
+  PROJECT_DELETED: {
+    icon: <Trash size={16} />,
+    color: "text-red-400",
+  },
+  PROJECT_UPDATED: {
+    icon: <Edit size={16} />,
+    color: "text-blue-400",
+  },
+
+  COLLECTION_CREATED: {
+    icon: <Layers size={16} />,
+    color: "text-purple-400",
+  },
+  COLLECTION_DELETED: {
+    icon: <Trash size={16} />,
+    color: "text-red-400",
+  },
+  COLLECTION_UPDATED: {
+    icon: <Edit size={16} />,
+    color: "text-blue-400",
+  },
+  COLLECTION_SHARED: {
+    icon: <Share2 size={16} />,
+    color: "text-yellow-400",
+  },
+
+  ERROR: {
+    icon: <AlertCircle size={16} />,
+    color: "text-yellow-400",
+  },
+};
 
 /* time ago helper */
 const timeAgo = (date) => {
@@ -32,7 +82,8 @@ const timeAgo = (date) => {
 const Topbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const projects = useProjectStore((state) => state.projects);
+  const [results, setResults] = useState([]);
   const {
     notifications = [],
     fetchNotifications,
@@ -96,6 +147,16 @@ const Topbar = () => {
     uploadImage(e.dataTransfer.files[0]);
   };
 
+  useEffect(() => {
+    if (!search.trim()) {
+      setResults([]);
+      return;
+    }
+    const filtered = projects.filter((p) =>
+      p.projectName.toLowerCase().includes(search.toLowerCase()),
+    );
+    setResults(filtered);
+  }, [search, projects]);
   /* socket notifications */
   useEffect(() => {
     const handleNewNotification = (notification) => {
@@ -117,7 +178,7 @@ const Topbar = () => {
     fetchProfileData();
   }, [fetchProfileData]);
 
-  /* close dropdown */
+  /* close dropdowns */
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target))
@@ -158,6 +219,27 @@ const Topbar = () => {
             placeholder="Search..."
             className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500"
           />
+          {search && (
+            <div className="absolute top-12 left-0 w-full bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+              {results.length === 0 ? (
+                <p className="text-gray-500 text-sm p-3">No projects found</p>
+              ) : (
+                results.map((project) => (
+                  <div
+                    key={project._id}
+                    onClick={() => {
+                      navigate(`/dashboard/projects/${project._id}`);
+                      setSearch("");
+                      setResults([]);
+                    }}
+                    className="px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/10 cursor-pointer"
+                  >
+                    {project.projectName}
+                  </div>
+                ))
+              )}
+            </div>
+          )}
         </div>
 
         {/* Notifications */}
@@ -176,7 +258,7 @@ const Topbar = () => {
           </button>
 
           {notifyOpen && (
-            <div className="absolute right-0 mt-3 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
+            <div className="absolute z-10 right-0 mt-3 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
               <div className="px-4 py-3 border-b border-purple-900/20 flex justify-between">
                 <p className="text-sm text-gray-300">Notifications</p>
                 <span className="text-xs text-purple-400">
@@ -190,20 +272,40 @@ const Topbar = () => {
                     No notifications
                   </p>
                 ) : (
-                  sortedNotifications.map((n) => (
-                    <div
-                      key={n._id}
-                      onClick={() => markAsRead(n._id)}
-                      className={`px-4 py-3 text-sm cursor-pointer border-b border-purple-900/10 hover:bg-purple-600/10
-                      ${!n.read ? "text-white bg-purple-900/10" : "text-gray-400"}
-                      `}
-                    >
-                      {n.message}
-                      <span className="block text-xs mt-1 text-gray-500">
-                        {timeAgo(n.createdAt)}
-                      </span>
-                    </div>
-                  ))
+                  sortedNotifications.map((n) => {
+                    const config = notificationConfig[n.type] || {};
+
+                    return (
+                      <div
+                        key={n._id}
+                        onClick={() => markAsRead(n._id)}
+                        className={`px-4 py-3 text-sm cursor-pointer border-b border-purple-900/10 hover:bg-purple-600/10
+                        ${
+                          !n.read
+                            ? "text-white bg-purple-900/10"
+                            : "text-gray-400"
+                        }
+                        `}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div
+                            className={`${
+                              config.color || "text-gray-400"
+                            } mt-1`}
+                          >
+                            {config.icon || <Bell size={16} />}
+                          </div>
+
+                          <div>
+                            <p>{n.message}</p>
+                            <span className="block text-xs mt-1 text-gray-500">
+                              {timeAgo(n.createdAt)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </div>

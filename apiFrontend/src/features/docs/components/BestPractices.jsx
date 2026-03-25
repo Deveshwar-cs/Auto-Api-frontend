@@ -45,7 +45,7 @@ const BestPractices = () => {
       {/* Heading */}
       <div className="max-w-3xl">
         <h2 className="text-4xl font-bold mb-4 text-gray-100">
-          📘 Best Practices
+          Best Practices
         </h2>
         <p className="text-gray-400 text-lg leading-relaxed">
           Follow these best practices when using the Auto API to ensure robust,

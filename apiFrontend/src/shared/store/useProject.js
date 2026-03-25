@@ -16,12 +16,10 @@ export const useProject = create((set, get) => ({
       set({loading: true});
 
       const res = await api.get(`/projects`);
-
       set({
         project: res.data.data,
         loading: false,
       });
-      console.log(res);
     } catch (err) {
       console.log(err);
       set({loading: false});

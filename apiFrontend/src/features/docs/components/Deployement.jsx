@@ -17,9 +17,7 @@ const Deployement = () => {
 
       {/* Steps Flow */}
       <div>
-        <h3 className="text-2xl font-semibold mb-6 text-center">
-          🚀 Setup Flow
-        </h3>
+        <h3 className="text-2xl font-semibold mb-6 text-center">Setup Flow</h3>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
           {["Install", "Configure", "Run", "Deploy"].map((step, i) => (
@@ -66,9 +64,7 @@ npm run dev`}</pre>
 
         {/* Env Variables */}
         <div className="md:col-span-2 bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">
-            🔑 Environment Variables
-          </h3>
+          <h3 className="text-lg font-semibold mb-4">Environment Variables</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300">
             <pre>{`PORT=5000

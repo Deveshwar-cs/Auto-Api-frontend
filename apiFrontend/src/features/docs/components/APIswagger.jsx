@@ -41,7 +41,7 @@ const APIswagger = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Endpoints */}
         <div className="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">📡 Endpoints</h3>
+          <h3 className="text-lg font-semibold mb-4">Endpoints</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300 space-y-1">
             <p>
@@ -64,7 +64,7 @@ const APIswagger = () => {
 
         {/* Request */}
         <div className="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">📥 Request</h3>
+          <h3 className="text-lg font-semibold mb-4">Request</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300">
             <pre>{`POST /api/products
@@ -80,7 +80,7 @@ const APIswagger = () => {
 
         {/* Response */}
         <div className="md:col-span-2 bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">📤 Response</h3>
+          <h3 className="text-lg font-semibold mb-4">Response</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300">
             <pre>{`{

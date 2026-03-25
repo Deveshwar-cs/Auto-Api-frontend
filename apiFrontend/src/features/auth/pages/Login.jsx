@@ -13,7 +13,6 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   // Google login handler
   const handleGoogleLogin = async (credentialResponse) => {
     if (!credentialResponse?.credential) return;

@@ -17,7 +17,7 @@ const Authentication = () => {
       {/* Flow */}
       <div>
         <h3 className="text-2xl font-semibold mb-6 text-center">
-          🔄 Authentication Flow
+          Authentication Flow
         </h3>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
@@ -47,7 +47,7 @@ const Authentication = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Login */}
         <div className="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">🔑 Login</h3>
+          <h3 className="text-lg font-semibold mb-4">Login</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300">
             <pre>{`POST /api/auth/login
@@ -61,7 +61,7 @@ const Authentication = () => {
 
         {/* Token */}
         <div className="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">📥 Token</h3>
+          <h3 className="text-lg font-semibold mb-4">Token</h3>
 
           <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl text-sm text-gray-300">
             <pre>{`{
@@ -73,7 +73,7 @@ const Authentication = () => {
 
         {/* Usage */}
         <div className="md:col-span-2 bg-slate-900/70 border border-slate-800 p-6 rounded-2xl">
-          <h3 className="text-lg font-semibold mb-4">📡 Using Token</h3>
+          <h3 className="text-lg font-semibold mb-4">Using Token</h3>
 
           <p className="text-gray-400 mb-4 text-sm">
             Include the token in the Authorization header for protected routes.
