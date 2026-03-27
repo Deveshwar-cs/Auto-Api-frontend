@@ -22,7 +22,7 @@ const Sidebar = () => {
         <div className="w-10 h-10 rounded-full overflow-hidden bg-purple-600 flex items-center justify-center text-white font-semibold">
           {profilePhoto ? (
             <img
-              src={`${BASE_URL}/uploads/${profilePhoto}`}
+              src={`${profilePhoto}`}
               alt="profile"
               className="w-full h-full object-cover"
             />

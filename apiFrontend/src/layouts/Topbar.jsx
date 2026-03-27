@@ -198,8 +198,7 @@ const Topbar = () => {
     return () => preview && URL.revokeObjectURL(preview);
   }, [preview]);
 
-  const imageSrc =
-    preview || (profilePhoto ? `${BASE_URL}/uploads/${profilePhoto}` : null);
+  const imageSrc = preview || profilePhoto || null;
 
   const sortedNotifications = [...notifications].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),

@@ -46,7 +46,7 @@ const FilesTab = () => {
       <div className="space-y-3">
         {files.map((file, index) => (
           <div key={index} className="card flex justify-between items-center">
-            <p className="font-semibold">{file.fileName}</p>
+            <p className="font-semibold">{file.name}</p>
 
             <div className="flex gap-3">
               <button
@@ -59,7 +59,7 @@ const FilesTab = () => {
               </button>
 
               <button
-                onClick={() => downloadFile(file.fileName, file.code)}
+                onClick={() => downloadFile(file.name, file.content)}
                 className="px-4 py-2 rounded-md
                bg-purple-600 text-white text-sm
                hover:bg-purple-700 transition"

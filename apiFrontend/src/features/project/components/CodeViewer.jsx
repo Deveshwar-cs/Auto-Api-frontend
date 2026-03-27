@@ -7,7 +7,7 @@ const CodeViewer = ({file, onClose}) => {
   if (!file) return null;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(file.code);
+    navigator.clipboard.writeText(file.content);
   };
 
   return (
@@ -19,7 +19,7 @@ const CodeViewer = ({file, onClose}) => {
           {/* Fake File Tabs */}
           <div className="flex items-center gap-3">
             <div className="px-4 py-1.5 bg-[#1B1330] rounded-lg text-sm text-white border border-purple-800/30">
-              {file.fileName}
+              {file.name}
             </div>
           </div>
 
@@ -60,7 +60,7 @@ const CodeViewer = ({file, onClose}) => {
               color: "#6B7280",
             }}
           >
-            {file.code}
+            {file.content}
           </SyntaxHighlighter>
         </div>
       </div>
