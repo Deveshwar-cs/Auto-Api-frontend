@@ -14,17 +14,27 @@ import Lenis from "@studio-freight/lenis";
 function LandingPage() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2, // scroll smoothness
+      duration: 1.2,
       smoothWheel: true,
       smoothTouch: false,
     });
 
+    let rafId;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+
+    // ✅ Cleanup: destroy lenis and cancel the animation loop
+    // This removes the "lenis lenis-smooth" classes from <html>
+    // which were blocking scroll on the dashboard after navigation
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   return (
