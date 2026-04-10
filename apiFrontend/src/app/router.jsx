@@ -21,7 +21,7 @@ import SettingsTab from "../features/project/components/SettingsTab";
 import SettingsPage from "../features/project/pages/SettingsPage";
 
 import Docs from "../features/docs/page/Docs";
-import ApiTesterTab from "../features/project/components/Apitestertab";
+import ApiTesterTab from "../features/project/components/ApiTesterTab.jsx";
 
 const AppRouter = () => {
   const route = createBrowserRouter([
