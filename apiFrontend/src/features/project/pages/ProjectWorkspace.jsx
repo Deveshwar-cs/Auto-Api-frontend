@@ -91,6 +91,7 @@ const ProjectWorkspace = () => {
       <div className="flex gap-6 border-b border-purple-900/20 mb-6">
         <Tab to={basePath} label="Collections" end />
         <Tab to={`${basePath}/files`} label="Generated Files" />
+        <Tab to={`${basePath}/apiTesting`} label="API Testing" />
         <Tab to={`${basePath}/docs`} label="API Docs" />
         <Tab to={`${basePath}/settings`} label="Settings" />
       </div>

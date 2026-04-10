@@ -21,6 +21,7 @@ import SettingsTab from "../features/project/components/SettingsTab";
 import SettingsPage from "../features/project/pages/SettingsPage";
 
 import Docs from "../features/docs/page/Docs";
+import ApiTesterTab from "../features/project/components/Apitestertab";
 
 const AppRouter = () => {
   const route = createBrowserRouter([
@@ -71,6 +72,10 @@ const AppRouter = () => {
             {
               path: "docs",
               element: <DocsTab />,
+            },
+            {
+              path: "apiTesting",
+              element: <ApiTesterTab />,
             },
             {
               path: "settings",
