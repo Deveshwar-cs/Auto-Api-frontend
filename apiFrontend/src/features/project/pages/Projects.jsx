@@ -101,7 +101,7 @@ const Projects = () => {
                     onClick={(e) => handleDelete(e, project)}
                     className="p-2 rounded-lg bg-red-500/10 text-red-400
                                hover:bg-red-500/20 hover:text-red-500
-                               opacity-0 group-hover:opacity-100
+                               opacity-100 sm:opacity-0 sm:group-hover:opacity-100
                                transition"
                   >
                     <Trash2 size={16} />

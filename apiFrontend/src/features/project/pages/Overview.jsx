@@ -31,7 +31,7 @@ const Overview = () => {
       />
 
       {/* Stats Section */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
         <StatCard
           title="Total Projects"
           value={stats?.totalProjects || 0}
@@ -69,7 +69,7 @@ const Overview = () => {
                   </span>
                 </div>
 
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-400 hidden sm:block">
                   {formatDateTime(project.createdAt)}
                 </span>
               </div>

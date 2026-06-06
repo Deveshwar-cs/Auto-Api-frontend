@@ -27,7 +27,7 @@ const Footer = () => {
     <footer className="bg-slate-950 text-gray-400 px-8 py-16 border-t border-slate-800">
       <div className="max-w-7xl mx-auto">
         {/* Grid */}
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
           <div>
             <div

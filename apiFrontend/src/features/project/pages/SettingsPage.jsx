@@ -25,7 +25,7 @@ const SettingsPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-purple-900/30 pb-4 mb-6">
+      <div className="flex gap-2 border-b border-purple-900/30 pb-4 mb-6 overflow-x-auto scrollbar-hide">
         <button
           className={tabClass("profile")}
           onClick={() => setActiveTab("profile")}

@@ -24,42 +24,68 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="bg-slate-950 text-white px-31.75 py-24 text-center">
-      <h2 className="text-[38px] font-bold mb-4">Loved by Developers</h2>
+    <section className="bg-slate-950 text-white px-5 sm:px-8 md:px-16 lg:px-24 py-16 md:py-24 text-center">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+        Loved by Developers
+      </h2>
 
-      <p className="text-gray-400 max-w-2xl mx-auto mb-14">
+      <p className="text-gray-400 max-w-2xl mx-auto mb-10 md:mb-14 text-sm sm:text-base">
         Thousands of developers trust AutoAPI to prototype faster and ship
         production-ready backends with confidence.
       </p>
 
-      <div className="grid  md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {testimonials.map((item, index) => (
           <div
             key={index}
-            className="relative bg-slate-900/60 backdrop-blur-lg p-7 rounded-2xl border border-slate-800 shadow-xl
-            hover:-translate-y-2 hover:border-indigo-500 transition duration-300"
+            className="
+              relative
+              bg-slate-900/60
+              backdrop-blur-lg
+              p-5 md:p-7
+              rounded-2xl
+              border border-slate-800
+              shadow-xl
+              hover:-translate-y-2
+              hover:border-indigo-500
+              transition-all
+              duration-300
+            "
           >
-            {/* Gradient glow */}
-            <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-indigo-500/0 to-purple-500/0 hover:from-indigo-500/10 hover:to-purple-500/10 transition pointer-events-none" />
+            {/* Gradient Glow */}
+            <div
+              className="
+                absolute inset-0 rounded-2xl
+                bg-gradient-to-r
+                from-indigo-500/0
+                to-purple-500/0
+                hover:from-indigo-500/10
+                hover:to-purple-500/10
+                transition
+                pointer-events-none
+              "
+            />
 
             {/* Rating */}
-            <div className="flex gap-1 text-yellow-400 mb-4">
+            <div className="flex gap-1 text-yellow-400 mb-4 justify-center md:justify-start">
               {[...Array(5)].map((_, i) => (
                 <span key={i}>★</span>
               ))}
             </div>
 
             {/* Feedback */}
-            <p className="text-gray-300 leading-relaxed mb-6">
+            <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
               "{item.feedback}"
             </p>
 
             {/* User */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center md:justify-start">
               <img
                 src={item.img}
-                className="w-10 h-10 rounded-full border border-slate-700"
+                alt={item.name}
+                className="w-12 h-12 rounded-full border border-slate-700"
               />
+
               <div className="text-left">
                 <h4 className="font-semibold">{item.name}</h4>
                 <p className="text-sm text-gray-500">{item.role}</p>

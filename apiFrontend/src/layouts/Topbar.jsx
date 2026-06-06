@@ -9,6 +9,7 @@ import {
   Edit,
   Share2,
   AlertCircle,
+  Menu,
 } from "lucide-react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useState, useRef, useEffect} from "react";
@@ -79,7 +80,7 @@ const timeAgo = (date) => {
   return `${seconds} seconds ago`;
 };
 
-const Topbar = () => {
+const Topbar = ({onMenuClick}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const projects = useProjectStore((state) => state.projects);
@@ -205,18 +206,27 @@ const Topbar = () => {
   );
 
   return (
-    <header className="h-16 bg-[#0D0716] border-b border-purple-900/20 flex items-center justify-between px-6">
-      <h2 className="text-lg font-semibold text-gray-200">{getTitle()}</h2>
+    <header className="h-16 bg-[#0D0716] border-b border-purple-900/20 flex items-center justify-between px-4 md:px-6 shrink-0">
+      <div className="flex items-center gap-3">
+        {/* Mobile menu button */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden text-gray-400 hover:text-white p-1"
+        >
+          <Menu size={20} />
+        </button>
+        <h2 className="text-lg font-semibold text-gray-200">{getTitle()}</h2>
+      </div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3 md:gap-5">
         {/* Search */}
-        <div className="relative">
+        <div className="relative hidden sm:block">
           <Search size={16} className="absolute top-2.5 left-3 text-gray-500" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500"
+            className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500 w-40 md:w-auto"
           />
           {search && (
             <div className="absolute top-12 left-0 w-full bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
@@ -257,7 +267,7 @@ const Topbar = () => {
           </button>
 
           {notifyOpen && (
-            <div className="absolute z-10 right-0 mt-3 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
+            <div className="absolute z-10 -right-16 sm:right-0 mt-5 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
               <div className="px-4 py-3 border-b border-purple-900/20 flex justify-between">
                 <p className="text-sm text-gray-300">Notifications</p>
                 <span className="text-xs text-purple-400">
@@ -330,7 +340,9 @@ const Topbar = () => {
               )}
             </div>
 
-            <span className="text-sm text-gray-300">{name}</span>
+            <span className="hidden md:block text-sm text-gray-300">
+              {name}
+            </span>
           </div>
 
           <input

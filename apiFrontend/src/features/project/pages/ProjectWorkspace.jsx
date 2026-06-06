@@ -69,7 +69,7 @@ const ProjectWorkspace = () => {
       />
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
         <StatCard
           title="Collections"
           value={collections?.length || 0}
@@ -88,7 +88,7 @@ const ProjectWorkspace = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 border-b border-purple-900/20 mb-6">
+      <div className="flex gap-4 md:gap-6 border-b border-purple-900/20 mb-6 overflow-x-auto scrollbar-hide pb-px">
         <Tab to={basePath} label="Collections" end />
         <Tab to={`${basePath}/files`} label="Generated Files" />
         <Tab to={`${basePath}/apiTesting`} label="API Testing" />
@@ -160,7 +160,7 @@ const Tab = ({to, label, end}) => {
       to={to}
       end={end}
       className={({isActive}) =>
-        `pb-3 text-sm font-medium transition ${
+        `pb-3 text-sm font-medium transition whitespace-nowrap ${
           isActive
             ? "text-purple-400 border-b-2 border-purple-500"
             : "text-gray-400 hover:text-white"
