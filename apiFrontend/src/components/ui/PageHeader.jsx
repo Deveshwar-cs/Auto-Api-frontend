@@ -2,19 +2,15 @@ const PageHeader = ({title, subtitle, action}) => {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 md:mb-8">
       <div>
-<<<<<<< HEAD
-        <h1 className="text-xl md:text-2xl font-bold text-white">{title}</h1>
-        {subtitle && <p className="text-sm text-gray-400 mt-1">{subtitle}</p>}
-=======
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
           {title}
         </h1>
+
         {subtitle && (
           <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
             {subtitle}
           </p>
         )}
->>>>>>> b5e3ffa (feat: Adding dark and light mode completely)
       </div>
 
       {action && <div className="shrink-0">{action}</div>}
