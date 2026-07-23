@@ -89,7 +89,7 @@ const AppearanceTab = () => {
             onClick={() => changeTheme("system")}
             className={cardClass("system")}
           >
-            <div className="w-10 h-6 rounded bg-gradient-to-r from-black to-gray-200 border border-gray-400" />
+            <div className="w-10 h-6 rounded bg-linear-to-r from-black to-gray-200 border border-gray-400" />
             <span className="text-sm text-slate-700 dark:text-gray-300">
               System
             </span>
