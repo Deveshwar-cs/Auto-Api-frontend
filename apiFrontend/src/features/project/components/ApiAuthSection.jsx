@@ -57,43 +57,49 @@ const ApiAuthSection = ({baseUrl, onTokenReceived}) => {
   const autoToken = response ? extractToken(response.data) : null;
 
   return (
-    <div className="bg-[#1B1330] border border-purple-900/20 rounded-2xl p-5 space-y-4">
+    <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-none">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <ShieldCheck size={15} className="text-purple-400" />
-        <p className="text-xs text-gray-400 uppercase tracking-widest">
+        <ShieldCheck
+          size={15}
+          className="text-purple-500 dark:text-purple-400"
+        />
+        <p className="text-xs text-slate-600 dark:text-gray-400 uppercase tracking-widest">
           Authentication
         </p>
-        <span className="text-xs text-gray-600 ml-auto">
+        <span className="text-xs text-slate-500 dark:text-gray-600 ml-auto">
           Login or Register to get your token
         </span>
       </div>
 
       {/* Auth Type Dropdown */}
       <div className="relative w-48">
-        <label className="text-xs text-gray-400 mb-1 block">Auth Type</label>
+        <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 block">
+          Auth Type
+        </label>
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="flex items-center gap-2 bg-[#241A40] border border-purple-800/30
-            rounded-lg px-4 py-2.5 text-sm text-white w-full hover:bg-purple-900/20 transition"
+          className="flex items-center gap-2 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-white w-full hover:bg-slate-100 dark:hover:bg-purple-900/20 transition"
         >
           <span className="flex-1 text-left">{selectedAuth.label}</span>
-          <ChevronDown size={14} className="text-gray-400" />
+          <ChevronDown
+            size={14}
+            className="text-slate-500 dark:text-gray-400"
+          />
         </button>
 
         {showDropdown && (
-          <div
-            className="absolute top-full mt-1 left-0 z-50 w-full bg-[#0D0716]
-            border border-purple-900/30 rounded-xl shadow-xl overflow-hidden"
-          >
+          <div className="absolute top-full mt-1 left-0 z-50 w-full bg-white dark:bg-[#0D0716] border border-slate-200 dark:border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
             {AUTH_ENDPOINTS.map((ep) => (
               <div
                 key={ep.label}
                 onClick={() => handleSelectAuth(ep)}
-                className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300
-                  hover:bg-purple-600/10 cursor-pointer transition border-b border-purple-900/10 last:border-0"
+                className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-600/10 cursor-pointer transition border-b border-slate-200 dark:border-purple-900/10 last:border-0"
               >
-                <User size={13} className="text-purple-400" />
+                <User
+                  size={13}
+                  className="text-purple-500 dark:text-purple-400"
+                />
                 {ep.label}
               </div>
             ))}
@@ -106,7 +112,9 @@ const ApiAuthSection = ({baseUrl, onTokenReceived}) => {
         {selectedAuth.fields.map((field) => (
           <div key={field} className="flex items-center gap-3">
             <div className="w-24 shrink-0">
-              <span className="text-xs text-purple-300 font-mono">{field}</span>
+              <span className="text-xs text-purple-600 dark:text-purple-300 font-mono">
+                {field}
+              </span>
             </div>
             <input
               type={field === "password" ? "password" : "text"}

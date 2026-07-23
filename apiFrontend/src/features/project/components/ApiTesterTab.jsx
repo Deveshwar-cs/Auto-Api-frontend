@@ -104,26 +104,30 @@ const ApiTesterTab = () => {
     <div className="space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-500 dark:text-purple-400">
           <Zap size={18} />
         </div>
         <div>
-          <h2 className="text-white font-semibold text-lg">API Tester</h2>
-          <p className="text-xs text-gray-400">
+          <h2 className="text-slate-900 dark:text-white font-semibold text-lg">
+            API Tester
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-gray-400">
             Test your generated API endpoints live
           </p>
         </div>
       </div>
 
       {/* Configuration */}
-      <div className="bg-[#1B1330] border border-purple-900/20 rounded-2xl p-5 space-y-4">
-        <p className="text-xs text-gray-400 uppercase tracking-widest">
+      <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-none">
+        <p className="text-xs text-slate-600 dark:text-gray-400 uppercase tracking-widest">
           Configuration
         </p>
 
         {/* Base URL */}
         <div>
-          <label className="text-xs text-gray-400 mb-1 block">Base URL</label>
+          <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 block">
+            Base URL
+          </label>
           <input
             value={baseUrl}
             onChange={(e) => setBaseUrl(e.target.value)}
@@ -134,14 +138,16 @@ const ApiTesterTab = () => {
 
         {/* Bearer Token */}
         <div className="min-w-0">
-          <label className="text-xs text-gray-400 mb-1 flex items-center gap-1.5">
+          <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 flex items-center gap-1.5">
             {token ? (
               <Lock size={11} className="text-purple-400" />
             ) : (
               <Unlock size={11} />
             )}
             Bearer Token
-            <span className="text-purple-500">(auto-filled after login)</span>
+            <span className="text-purple-600 dark:text-purple-500">
+              (auto-filled after login)
+            </span>
           </label>
           <input
             value={token}
@@ -150,7 +156,7 @@ const ApiTesterTab = () => {
             className={`${inputCls} font-mono overflow-hidden text-ellipsis`}
           />
           {token && (
-            <p className="text-xs text-gray-600 mt-1 truncate">
+            <p className="text-xs text-slate-500 dark:text-gray-600 mt-1 truncate">
               {token.slice(0, 40)}...
             </p>
           )}
@@ -161,26 +167,28 @@ const ApiTesterTab = () => {
       <ApiAuthSection baseUrl={baseUrl} onTokenReceived={setToken} />
 
       {/* Request Builder */}
-      <div className="bg-[#1B1330] border border-purple-900/20 rounded-2xl p-5 space-y-4">
-        <p className="text-xs text-gray-400 uppercase tracking-widest">
+      <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-none">
+        <p className="text-xs text-slate-600 dark:text-gray-400 uppercase tracking-widest">
           Request
         </p>
 
         <div className="flex gap-3 flex-wrap">
           {/* Collection Dropdown */}
           <div className="relative">
-            <label className="text-xs text-gray-400 mb-1 block">
+            <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 block">
               Collection
             </label>
             <button
               onClick={() => setShowCollectionDropdown(!showCollectionDropdown)}
-              className="flex items-center gap-2 bg-[#241A40] border border-purple-800/30
-                rounded-lg px-4 py-2.5 text-sm text-white min-w-44 hover:bg-purple-900/20 transition"
+              className="flex items-center gap-2 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-white min-w-44 hover:bg-slate-100 dark:hover:bg-purple-900/20 transition"
             >
               <span className="flex-1 text-left">
                 {selectedCollection?.collectionName || "Select collection"}
               </span>
-              <ChevronDown size={14} className="text-gray-400" />
+              <ChevronDown
+                size={14}
+                className="text-slate-500 dark:text-gray-400"
+              />
             </button>
 
             {showCollectionDropdown && (
@@ -189,7 +197,7 @@ const ApiTesterTab = () => {
                 border border-purple-900/30 rounded-xl shadow-xl overflow-hidden"
               >
                 {collections.length === 0 ? (
-                  <p className="text-gray-500 text-sm p-3">
+                  <p className="text-slate-500 dark:text-gray-500 text-sm p-3">
                     No collections found
                   </p>
                 ) : (
@@ -197,8 +205,7 @@ const ApiTesterTab = () => {
                     <div
                       key={col._id}
                       onClick={() => handleSelectCollection(col)}
-                      className="px-4 py-2.5 text-sm text-gray-300 hover:bg-purple-600/10
-                      cursor-pointer transition border-b border-purple-900/10 last:border-0"
+                      className="px-4 py-2.5 text-sm text-slate-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-600/10 cursor-pointer transition border-b border-slate-200 dark:border-purple-900/10 last:border-0"
                     >
                       {col.collectionName}
                       {col.protect && (
@@ -216,13 +223,13 @@ const ApiTesterTab = () => {
 
           {/* Endpoint Dropdown */}
           <div className="relative flex-1 min-w-56">
-            <label className="text-xs text-gray-400 mb-1 block">Endpoint</label>
+            <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 block">
+              Endpoint
+            </label>
             <button
               disabled={!selectedCollection}
               onClick={() => setShowEndpointDropdown(!showEndpointDropdown)}
-              className="flex items-center gap-2 bg-[#241A40] border border-purple-800/30
-                rounded-lg px-4 py-2.5 text-sm text-white w-full
-                hover:bg-purple-900/20 transition disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-white w-full hover:bg-slate-100 dark:hover:bg-purple-900/20 transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {selectedEndpoint ? (
                 <>
@@ -231,16 +238,19 @@ const ApiTesterTab = () => {
                   >
                     {selectedEndpoint.method}
                   </span>
-                  <span className="font-mono text-xs text-gray-300 flex-1 text-left truncate">
+                  <span className="font-mono text-xs text-slate-700 dark:text-gray-300 flex-1 text-left truncate">
                     {selectedEndpoint.path}
                   </span>
                 </>
               ) : (
-                <span className="flex-1 text-left text-gray-400">
+                <span className="flex-1 text-left text-slate-500 dark:text-gray-400">
                   Select endpoint
                 </span>
               )}
-              <ChevronDown size={14} className="text-gray-400 shrink-0" />
+              <ChevronDown
+                size={14}
+                className="text-slate-500 dark:text-gray-400 shrink-0"
+              />
             </button>
 
             {showEndpointDropdown && (
@@ -260,10 +270,10 @@ const ApiTesterTab = () => {
                     >
                       {ep.method}
                     </span>
-                    <span className="font-mono text-xs text-gray-300">
+                    <span className="font-mono text-xs text-slate-700 dark:text-gray-300">
                       {ep.path}
                     </span>
-                    <span className="text-gray-500 text-xs ml-auto">
+                    <span className="text-slate-500 dark:text-gray-500 text-xs ml-auto">
                       {ep.label}
                     </span>
                   </div>
@@ -276,7 +286,7 @@ const ApiTesterTab = () => {
         {/* Resource ID */}
         {selectedEndpoint?.hasId && (
           <div>
-            <label className="text-xs text-gray-400 mb-1 block">
+            <label className="text-xs text-slate-600 dark:text-gray-400 mb-1 block">
               Resource ID
             </label>
             <input
@@ -292,7 +302,7 @@ const ApiTesterTab = () => {
         {selectedEndpoint?.hasBody &&
           selectedCollection?.fields?.length > 0 && (
             <div>
-              <label className="text-xs text-gray-400 mb-2 block">
+              <label className="text-xs text-slate-600 dark:text-gray-400 mb-2 block">
                 Request Body
               </label>
               <div className="space-y-2">
@@ -302,10 +312,10 @@ const ApiTesterTab = () => {
                     className="flex items-center gap-3"
                   >
                     <div className="w-36 shrink-0">
-                      <span className="text-xs text-purple-300 font-mono">
+                      <span className="text-xs text-purple-600 dark:text-purple-300 font-mono">
                         {field.name}
                       </span>
-                      <span className="text-xs text-gray-600 ml-1">
+                      <span className="text-xs text-slate-500 dark:text-gray-600 ml-1">
                         ({field.type})
                       </span>
                     </div>
@@ -326,8 +336,7 @@ const ApiTesterTab = () => {
                               ? "2024-01-01"
                               : `Enter ${field.name}...`
                       }
-                      className="flex-1 bg-[#241A40] border border-purple-800/30 rounded-lg
-                      px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-purple-600"
+                      className="flex-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-600"
                     />
                     {field.required && (
                       <span className="text-red-400 text-xs shrink-0">

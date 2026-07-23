@@ -60,7 +60,7 @@ const SettingsTab = () => {
   };
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 text-slate-800 dark:text-white">
       <h2 className="text-xl font-semibold">Project Settings</h2>
 
       {success && (
@@ -70,61 +70,71 @@ const SettingsTab = () => {
       )}
 
       {/* SETTINGS CARD */}
-      <div className="bg-[#1B1330] border border-purple-900/20 p-6 rounded-lg space-y-5">
+      <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 p-6 rounded-lg space-y-5 shadow-sm dark:shadow-none">
         <div>
-          <label className="text-sm text-gray-400">Project Name</label>
+          <label className="text-sm text-slate-600 dark:text-gray-400">
+            Project Name
+          </label>
           <input
             type="text"
             name="projectName"
             value={form.projectName}
             onChange={handleChange}
-            className="w-full mt-1 bg-[#241A40] border border-purple-800/30 rounded-lg px-3 py-2 text-sm"
+            className="w-full mt-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white"
           />
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm text-gray-400">Port</label>
+            <label className="text-sm text-slate-600 dark:text-gray-400">
+              Port
+            </label>
             <input
               type="number"
               name="port"
               value={form.port}
               onChange={handleChange}
-              className="w-full mt-1 bg-[#241A40] border border-purple-800/30 rounded-lg px-3 py-2 text-sm"
+              className="w-full mt-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label className="text-sm text-gray-400">API Prefix</label>
+            <label className="text-sm text-slate-600 dark:text-gray-400">
+              API Prefix
+            </label>
             <input
               type="text"
               name="apiPrefix"
               value={form.apiPrefix}
               onChange={handleChange}
-              className="w-full mt-1 bg-[#241A40] border border-purple-800/30 rounded-lg px-3 py-2 text-sm"
+              className="w-full mt-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white"
             />
           </div>
         </div>
 
         <div>
-          <label className="text-sm text-gray-400">Mongo URI</label>
+          <label className="text-sm text-slate-600 dark:text-gray-400">
+            Mongo URI
+          </label>
           <input
             type="text"
             name="mongoUri"
             value={form.mongoUri}
             onChange={handleChange}
-            className="w-full mt-1 bg-[#241A40] border border-purple-800/30 rounded-lg px-3 py-2 text-sm"
+            className="w-full mt-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="text-sm text-gray-400">JWT Secret</label>
+          <label className="text-sm text-slate-600 dark:text-gray-400">
+            JWT Secret
+          </label>
           <input
             type="text"
             name="jwtSecret"
             value={form.jwtSecret}
             onChange={handleChange}
-            className="w-full mt-1 bg-[#241A40] border border-purple-800/30 rounded-lg px-3 py-2 text-sm"
+            className="w-full mt-1 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white"
           />
         </div>
 
@@ -137,7 +147,7 @@ const SettingsTab = () => {
           ].map((item) => (
             <label
               key={item.name}
-              className="flex items-center justify-between border border-purple-800/30 rounded-xl px-4 py-3 bg-[#241A40]"
+              className="flex items-center justify-between border border-slate-200 dark:border-purple-800/30 rounded-xl px-4 py-3 bg-slate-50 dark:bg-[#241A40]"
             >
               <span className="text-sm">{item.label}</span>
 
@@ -175,10 +185,10 @@ const SettingsTab = () => {
       {/* SAVE CONFIRM MODAL */}
       {showConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-[#1B1330] p-6 rounded-lg w-87.5 space-y-4 border border-purple-800/30">
+          <div className="bg-white dark:bg-[#1B1330] p-6 rounded-lg w-87.5 space-y-4 border border-slate-200 dark:border-purple-800/30">
             <h3 className="text-lg font-semibold">Confirm Changes</h3>
 
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-600 dark:text-gray-400">
               Are you sure you want to update the project settings?
             </p>
 
@@ -205,12 +215,12 @@ const SettingsTab = () => {
       {/* DELETE CONFIRM MODAL */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-[#1B1330] p-6 rounded-lg w-87.5 space-y-4 border border-red-800/30">
+          <div className="bg-white dark:bg-[#1B1330] p-6 rounded-lg w-87.5 space-y-4 border border-red-200 dark:border-red-800/30">
             <h3 className="text-lg font-semibold text-red-400">
               Delete Project
             </h3>
 
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-600 dark:text-gray-400">
               This action cannot be undone. Are you sure you want to delete this
               project?
             </p>

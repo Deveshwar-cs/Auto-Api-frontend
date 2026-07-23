@@ -110,34 +110,34 @@ const CollectionForm = ({onSuccess, collection}) => {
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Collection Name */}
       <div>
-        <label className="text-sm text-gray-300">Collection Name</label>
+        <label className="text-sm text-slate-700 dark:text-gray-300">
+          Collection Name
+        </label>
 
         <input
           type="text"
           value={collectionName}
           onChange={(e) => setCollectionName(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-[#241A40]
-          border border-purple-800/30 text-white"
+          className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white"
         />
       </div>
 
       {/* 🔐 Protected Toggle */}
-      <div className="bg-[#241A40] border border-purple-900/30 rounded-2xl p-5">
+      <div className="bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/30 rounded-2xl p-5">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
             checked={isProtected}
             onChange={(e) => setIsProtected(e.target.checked)}
-            className="mt-1 h-5 w-5 rounded-md bg-[#1B1330] border-purple-700
-                       text-purple-600 focus:ring-purple-600"
+            className="mt-1 h-5 w-5 rounded-md bg-white dark:bg-[#1B1330] border-slate-300 dark:border-purple-700 text-purple-600 focus:ring-purple-600"
           />
 
           <div>
-            <p className="text-sm font-semibold text-white">
+            <p className="text-sm font-semibold text-slate-900 dark:text-white">
               Protected Routes 🔐
             </p>
 
-            <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-gray-400 mt-1 leading-relaxed">
               If enabled, all routes will require authentication.
             </p>
           </div>

@@ -54,16 +54,16 @@ const ProjectModal = ({isOpen, onClose}) => {
       {/* Overlay */}
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
         {/* Modal Box */}
-        <div className="relative w-full max-w-4xl bg-[#1B1330] border border-purple-900/30 rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto">
+        <div className="relative w-full max-w-4xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/30 rounded-2xl shadow-2xl p-10 max-h-[90vh] overflow-y-auto">
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 text-gray-400 hover:text-white text-xl transition"
+            className="absolute top-5 right-5 text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white text-xl transition"
           >
             ✕
           </button>
 
-          <h2 className="text-2xl font-semibold text-white mb-8 text-center">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-8 text-center">
             Create New Backend Project
           </h2>
 
@@ -76,7 +76,7 @@ const ProjectModal = ({isOpen, onClose}) => {
               value={form.projectName}
               onChange={handleChange}
               required
-              className="w-full px-5 py-4 rounded-xl bg-[#241A40] border border-purple-900/20 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
             />
 
             {/* Port & API Prefix */}
@@ -87,7 +87,7 @@ const ProjectModal = ({isOpen, onClose}) => {
                 placeholder="Port Number"
                 value={form.port}
                 onChange={handleChange}
-                className="px-5 py-4 rounded-xl bg-[#241A40] border border-purple-900/20 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
+                className="px-5 py-4 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
               />
 
               <input
@@ -96,7 +96,7 @@ const ProjectModal = ({isOpen, onClose}) => {
                 placeholder="API Prefix (/api)"
                 value={form.apiPrefix}
                 onChange={handleChange}
-                className="px-5 py-4 rounded-xl bg-[#241A40] border border-purple-900/20 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
+                className="px-5 py-4 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
               />
             </div>
 
@@ -108,7 +108,7 @@ const ProjectModal = ({isOpen, onClose}) => {
               value={form.mongoUri}
               onChange={handleChange}
               required
-              className="w-full px-5 py-4 rounded-xl bg-[#241A40] border border-purple-900/20 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
             />
 
             {/* JWT Secret */}
@@ -119,7 +119,7 @@ const ProjectModal = ({isOpen, onClose}) => {
               value={form.jwtSecret}
               onChange={handleChange}
               required
-              className="w-full px-5 py-4 rounded-xl bg-[#241A40] border border-purple-900/20 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition"
             />
 
             {/* Toggles */}
@@ -131,9 +131,11 @@ const ProjectModal = ({isOpen, onClose}) => {
               ].map((item) => (
                 <label
                   key={item.name}
-                  className="flex items-center justify-between bg-[#241A40] border border-purple-900/20 rounded-xl px-5 py-4 cursor-pointer hover:border-purple-500 transition"
+                  className="flex items-center justify-between bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 rounded-xl px-5 py-4 cursor-pointer hover:border-purple-500 transition"
                 >
-                  <span className="text-gray-300 text-sm">{item.label}</span>
+                  <span className="text-slate-700 dark:text-gray-300 text-sm">
+                    {item.label}
+                  </span>
                   <input
                     type="checkbox"
                     name={item.name}

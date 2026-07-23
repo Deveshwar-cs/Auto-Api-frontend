@@ -8,7 +8,7 @@ const ProjectCard = ({project, onEdit, onDelete}) => {
         <Link to={`/project/${project._id}`}>{project.projectName}</Link>
       </h3>
 
-      <p className="text-gray-500 mt-3 text-sm">
+      <p className="text-slate-600 dark:text-gray-500 mt-3 text-sm">
         Open and manage this backend →
       </p>
 

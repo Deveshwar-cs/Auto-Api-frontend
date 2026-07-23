@@ -5,11 +5,7 @@ const fieldTypes = ["String", "Number", "Boolean", "Date", "ObjectId", "Array"];
 
 const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
   return (
-    <div
-      className="relative bg-[#241A40] border border-purple-900/20 rounded-2xl p-6 pr-14
-                 grid grid-cols-1 md:grid-cols-12 gap-5
-                 transition hover:border-purple-700/40"
-    >
+    <div className="relative bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-6 pr-14 grid grid-cols-1 md:grid-cols-12 gap-5 transition hover:border-purple-400/50 dark:hover:border-purple-700/40">
       {/* Remove Button */}
       {canRemove && (
         <button
@@ -26,7 +22,7 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
 
       {/* Field Name */}
       <div className="md:col-span-3 space-y-1">
-        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+        <label className="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wide">
           Field Name
         </label>
         <input
@@ -34,25 +30,19 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
           placeholder="e.g. username"
           value={field.name}
           onChange={(e) => onChange(index, "name", e.target.value)}
-          className="w-full px-3 py-2.5 rounded-xl bg-[#1B1330] border border-purple-800/30
-                     text-white placeholder-gray-500
-                     focus:ring-2 focus:ring-purple-600 focus:border-purple-600
-                     outline-none transition"
+          className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition"
         />
       </div>
 
       {/* Type */}
       <div className="md:col-span-2 space-y-1">
-        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+        <label className="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wide">
           Type
         </label>
         <select
           value={field.type}
           onChange={(e) => onChange(index, "type", e.target.value)}
-          className="w-full px-3 py-2.5 rounded-xl bg-[#1B1330] border border-purple-800/30
-                     text-white
-                     focus:ring-2 focus:ring-purple-600 focus:border-purple-600
-                     outline-none transition"
+          className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition"
         >
           {fieldTypes.map((type) => (
             <option key={type} className="bg-[#1B1330]">
@@ -68,25 +58,23 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
           type="checkbox"
           checked={field.required}
           onChange={(e) => onChange(index, "required", e.target.checked)}
-          className="h-5 w-5 rounded-md bg-[#1B1330] border-purple-700
-                     text-purple-600 focus:ring-purple-600 transition"
+          className="h-5 w-5 rounded-md bg-white dark:bg-[#1B1330] border-slate-300 dark:border-purple-700 text-purple-600 focus:ring-purple-600 transition"
         />
-        <span className="text-sm font-medium text-gray-300">Required</span>
+        <span className="text-sm font-medium text-slate-700 dark:text-gray-300">
+          Required
+        </span>
       </div>
 
       {/* Items Type */}
       {field.type === "Array" && (
         <div className="md:col-span-2 space-y-1">
-          <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <label className="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wide">
             Items Type
           </label>
           <select
             value={field.itemsType}
             onChange={(e) => onChange(index, "itemsType", e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl bg-[#1B1330] border border-purple-800/30
-                       text-white
-                       focus:ring-2 focus:ring-purple-600 focus:border-purple-600
-                       outline-none transition"
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition"
           >
             {fieldTypes.map((type) => (
               <option key={type} className="bg-[#1B1330]">
@@ -100,7 +88,7 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
       {/* Enum */}
       {(field.type === "String" || field.type === "Array") && (
         <div className="md:col-span-3 space-y-1">
-          <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <label className="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wide">
             Enum Values
           </label>
           <input
@@ -108,10 +96,7 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
             placeholder="e.g. admin,user"
             value={field.enum}
             onChange={(e) => onChange(index, "enum", e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl bg-[#1B1330] border border-purple-800/30
-                       text-white placeholder-gray-500
-                       focus:ring-2 focus:ring-purple-600 focus:border-purple-600
-                       outline-none transition"
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition"
           />
         </div>
       )}
@@ -119,7 +104,7 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
       {/* Reference */}
       {field.type === "ObjectId" && (
         <div className="md:col-span-3 space-y-1">
-          <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <label className="text-xs font-semibold text-slate-600 dark:text-gray-400 uppercase tracking-wide">
             Reference Model
           </label>
           <input
@@ -127,10 +112,7 @@ const FieldRow = ({field, index, onChange, onRemove, canRemove}) => {
             placeholder="e.g. User"
             value={field.ref}
             onChange={(e) => onChange(index, "ref", e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl bg-[#1B1330] border border-purple-800/30
-                       text-white placeholder-gray-500
-                       focus:ring-2 focus:ring-purple-600 focus:border-purple-600
-                       outline-none transition"
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-800/30 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none transition"
           />
         </div>
       )}

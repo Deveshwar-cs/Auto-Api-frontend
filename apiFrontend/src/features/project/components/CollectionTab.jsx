@@ -82,18 +82,13 @@ const CollectionsTab = () => {
           placeholder="Search collections..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-72 bg-[#241A40] border border-purple-800/30
-          rounded-lg px-4 py-2 text-sm text-white
-          outline-none focus:ring-2 focus:ring-purple-600"
+          className="w-72 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-4 py-2 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-600"
         />
 
         <div className="flex gap-3">
           <button
             onClick={() => setShowGenerateConfirm(true)}
-            className="flex items-center gap-2 bg-[#241A40]
-            border border-purple-800/30
-            hover:bg-purple-900/20
-            px-4 py-2 rounded-lg text-sm text-purple-300 transition"
+            className="flex items-center gap-2 bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 hover:bg-slate-100 dark:hover:bg-purple-900/20 px-4 py-2 rounded-lg text-sm text-purple-600 dark:text-purple-300 transition"
           >
             <FileCode size={16} />
             Generate All
@@ -127,7 +122,7 @@ const CollectionsTab = () => {
 
       {/* Collections Grid */}
       {filteredCollections.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
+        <div className="text-center py-20 text-slate-600 dark:text-gray-400">
           <Database size={40} className="mx-auto mb-4 text-purple-500/40" />
           <p>No collections found</p>
         </div>
@@ -139,18 +134,16 @@ const CollectionsTab = () => {
             return (
               <div
                 key={collection._id}
-                className="bg-[#1B1330] border border-purple-900/20
-                rounded-2xl p-5 hover:bg-[rgb(36,26,64)]
-                transition group relative"
+                className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-5 hover:bg-slate-50 dark:hover:bg-[rgb(36,26,64)] transition group relative shadow-sm dark:shadow-none"
               >
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-white font-semibold text-lg">
+                    <h3 className="text-slate-900 dark:text-white font-semibold text-lg">
                       {collection.collectionName}
                     </h3>
 
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-slate-600 dark:text-gray-400">
                       {collection.fields?.length || 0} fields
                     </p>
                   </div>
@@ -182,7 +175,7 @@ const CollectionsTab = () => {
                 {/* Fields Table */}
                 <div className="overflow-hidden rounded-lg border border-purple-900/30 mb-4">
                   <table className="w-full text-xs text-left">
-                    <thead className="bg-[#241A40] text-gray-400">
+                    <thead className="bg-slate-100 dark:bg-[#241A40] text-slate-600 dark:text-gray-400">
                       <tr>
                         <th className="px-3 py-2">Field</th>
                         <th className="px-3 py-2">Type</th>
@@ -196,7 +189,9 @@ const CollectionsTab = () => {
                           key={field._id || field.name}
                           className="border-t border-purple-900/20"
                         >
-                          <td className="px-3 py-2 text-white">{field.name}</td>
+                          <td className="px-3 py-2 text-slate-900 dark:text-white">
+                            {field.name}
+                          </td>
 
                           <td className="px-3 py-2 text-purple-300">
                             {field.type}
@@ -206,7 +201,9 @@ const CollectionsTab = () => {
                             {field.required ? (
                               <span className="text-red-400">Yes</span>
                             ) : (
-                              <span className="text-gray-500">No</span>
+                              <span className="text-slate-500 dark:text-gray-500">
+                                No
+                              </span>
                             )}
                           </td>
                         </tr>
@@ -215,7 +212,7 @@ const CollectionsTab = () => {
                   </table>
 
                   {collection.fields?.length > 5 && (
-                    <div className="text-xs text-center py-2 text-gray-400 border-t border-purple-900/20">
+                    <div className="text-xs text-center py-2 text-slate-600 dark:text-gray-400 border-t border-slate-200 dark:border-purple-900/20">
                       +{collection.fields.length - 5} more fields
                     </div>
                   )}

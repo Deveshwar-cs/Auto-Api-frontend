@@ -54,22 +54,27 @@ const Overview = () => {
       {/* Recent Projects */}
       <SectionCard title="Recent Projects">
         {recentProjects?.length === 0 ? (
-          <p className="text-gray-400 text-sm">No projects created yet.</p>
+          <p className="text-slate-600 dark:text-gray-400 text-sm">
+            No projects created yet.
+          </p>
         ) : (
           <div className="space-y-3">
             {recentProjects.map((project) => (
               <div
                 key={project._id}
-                className="flex items-center justify-between bg-[oklch(0.14_0.02_252.45)] p-3 rounded-lg hover:bg-gray-700 transition"
+                className="flex items-center justify-between bg-slate-50 dark:bg-[oklch(0.14_0.02_252.45)] p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-700 transition"
               >
                 <div className="flex items-center gap-3">
-                  <Folder size={16} className="text-gray-400" />
-                  <span className="text-sm font-medium">
+                  <Folder
+                    size={16}
+                    className="text-slate-500 dark:text-gray-400"
+                  />
+                  <span className="text-sm font-medium text-slate-800 dark:text-white">
                     {project.projectName}
                   </span>
                 </div>
 
-                <span className="text-xs text-gray-400 hidden sm:block">
+                <span className="text-xs text-slate-600 dark:text-gray-400 hidden sm:block">
                   {formatDateTime(project.createdAt)}
                 </span>
               </div>

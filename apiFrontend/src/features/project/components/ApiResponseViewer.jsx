@@ -1,19 +1,19 @@
 import {Copy, Check} from "lucide-react";
 
 const statusColor = (s) => {
-  if (s >= 200 && s < 300) return "text-green-400";
-  if (s >= 400 && s < 500) return "text-yellow-400";
-  if (s >= 500) return "text-red-400";
-  return "text-gray-400";
+  if (s >= 200 && s < 300) return "text-green-500 dark:text-green-400";
+  if (s >= 400 && s < 500) return "text-amber-600 dark:text-yellow-400";
+  if (s >= 500) return "text-red-600 dark:text-red-400";
+  return "text-slate-500 dark:text-gray-400";
 };
 
 const ApiResponseViewer = ({response, onCopy, copied}) => {
   return (
-    <div className="bg-[#1B1330] border border-purple-900/20 rounded-2xl p-5 space-y-3">
+    <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl p-5 space-y-3 shadow-sm dark:shadow-none">
       {/* Status Row */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <p className="text-xs text-gray-400 uppercase tracking-widest">
+          <p className="text-xs text-slate-600 dark:text-gray-400 uppercase tracking-widest">
             Response
           </p>
 
@@ -21,7 +21,9 @@ const ApiResponseViewer = ({response, onCopy, copied}) => {
             {response.status || "ERR"}
           </span>
 
-          <span className="text-xs text-gray-500">{response.time}ms</span>
+          <span className="text-xs text-slate-500 dark:text-gray-500">
+            {response.time}ms
+          </span>
 
           {response.ok ? (
             <span className="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-md border border-green-500/20">
@@ -37,8 +39,7 @@ const ApiResponseViewer = ({response, onCopy, copied}) => {
         {/* Copy Button */}
         <button
           onClick={onCopy}
-          className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white
-            transition px-3 py-1.5 rounded-lg bg-[#241A40] border border-purple-800/30"
+          className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30"
         >
           {copied ? (
             <Check size={12} className="text-green-400" />
@@ -50,10 +51,7 @@ const ApiResponseViewer = ({response, onCopy, copied}) => {
       </div>
 
       {/* JSON Body */}
-      <pre
-        className="bg-[#0D0716] rounded-xl p-4 text-xs text-green-300 font-mono
-        overflow-x-auto max-h-72 border border-purple-900/20 whitespace-pre-wrap break-all"
-      >
+      <pre className="bg-slate-50 dark:bg-[#0D0716] rounded-xl p-4 text-xs text-slate-700 dark:text-green-300 font-mono overflow-x-auto max-h-72 border border-slate-200 dark:border-purple-900/20 whitespace-pre-wrap break-all">
         {JSON.stringify(response.data, null, 2)}
       </pre>
     </div>

@@ -67,8 +67,8 @@ export const getEndpoints = (collectionName) => {
 };
 
 // ─── Shared input class ───────────────────────────────────────────────────────
-export const inputCls = `w-full bg-[#241A40] border border-purple-800/30 rounded-lg
-  px-4 py-2.5 text-sm text-white outline-none focus:ring-2 focus:ring-purple-600`;
+export const inputCls = `w-full bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg
+  px-4 py-2.5 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-600`;
 
 // ─── Make a fetch request and return { status, ok, data, time } ──────────────
 export const makeRequest = async ({url, method, headers, body}) => {

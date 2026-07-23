@@ -10,22 +10,24 @@ const SettingsPage = () => {
     `px-4 py-2 text-sm font-medium rounded-lg transition
      ${
        activeTab === tab
-         ? "bg-purple-600/20 text-purple-400"
-         : "text-gray-400 hover:text-white hover:bg-purple-600/10"
+         ? "bg-purple-600/20 text-purple-600 dark:text-purple-400"
+         : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-purple-600/10"
      }`;
 
   return (
-    <div className="p-6 text-gray-200">
+    <div className="p-6 text-slate-800 dark:text-gray-200">
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-purple-400">Settings</h1>
-        <p className="text-sm text-gray-400 mt-1">
+        <h1 className="text-2xl font-semibold text-purple-600 dark:text-purple-400">
+          Settings
+        </h1>
+        <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
           Manage your account preferences and security.
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-purple-900/30 pb-4 mb-6 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-2 border-b border-purple-900/30 pb-4 mb-6">
         <button
           className={tabClass("profile")}
           onClick={() => setActiveTab("profile")}

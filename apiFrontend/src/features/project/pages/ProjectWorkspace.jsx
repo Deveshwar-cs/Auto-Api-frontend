@@ -31,7 +31,11 @@ const ProjectWorkspace = () => {
     fetchCollections(projectId);
   }, [fetchProjects, fetchGeneratedFiles, projectId, fetchCollections]);
   if (!project) {
-    return <div className="text-white p-6">Project not found</div>;
+    return (
+      <div className="text-slate-900 dark:text-white p-6">
+        Project not found
+      </div>
+    );
   }
 
   const basePath = `/dashboard/projects/${projectId}`;
@@ -88,7 +92,7 @@ const ProjectWorkspace = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 md:gap-6 border-b border-purple-900/20 mb-6 overflow-x-auto scrollbar-hide pb-px">
+      <div className="flex gap-6 border-b border-purple-900/20 mb-6">
         <Tab to={basePath} label="Collections" end />
         <Tab to={`${basePath}/files`} label="Generated Files" />
         <Tab to={`${basePath}/apiTesting`} label="API Testing" />
@@ -111,8 +115,8 @@ const ProjectWorkspace = () => {
       {/* Create Collection Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="w-105 bg-[#1B1330] border border-purple-900/20 rounded-2xl shadow-2xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">
+          <div className="w-105 bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl shadow-2xl p-6">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
               Create New Collection
             </h2>
 
@@ -125,13 +129,13 @@ const ProjectWorkspace = () => {
                 if (e.key === "Enter") handleCreateCollection();
               }}
               autoFocus
-              className="w-full bg-[#241A40] border border-purple-800/30 rounded-lg px-4 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-purple-600 mb-5"
+              className="w-full bg-slate-50 dark:bg-[#241A40] border border-slate-200 dark:border-purple-800/30 rounded-lg px-4 py-2 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-purple-600 mb-5"
             />
 
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 text-sm rounded-lg bg-gray-700 hover:bg-gray-600 text-white transition"
+                className="px-4 py-2 text-sm rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition"
               >
                 Cancel
               </button>

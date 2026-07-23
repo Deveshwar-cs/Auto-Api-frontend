@@ -80,7 +80,7 @@ const timeAgo = (date) => {
   return `${seconds} seconds ago`;
 };
 
-const Topbar = ({onMenuClick}) => {
+const Topbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const projects = useProjectStore((state) => state.projects);
@@ -200,38 +200,40 @@ const Topbar = ({onMenuClick}) => {
   }, [preview]);
 
   const imageSrc = preview || profilePhoto || null;
+  const isDark = theme === "dark";
 
   const sortedNotifications = [...notifications].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );
 
   return (
-    <header className="h-16 bg-[#0D0716] border-b border-purple-900/20 flex items-center justify-between px-4 md:px-6 shrink-0">
-      <div className="flex items-center gap-3">
-        {/* Mobile menu button */}
-        <button
-          onClick={onMenuClick}
-          className="lg:hidden text-gray-400 hover:text-white p-1"
-        >
-          <Menu size={20} />
-        </button>
-        <h2 className="text-lg font-semibold text-gray-200">{getTitle()}</h2>
-      </div>
+    <header className="h-16 bg-[#0D0716] border-b border-purple-900/20 flex items-center justify-between px-6">
+      <h2 className="text-lg font-semibold text-gray-200">{getTitle()}</h2>
 
       <div className="flex items-center gap-3 md:gap-5">
         {/* Search */}
-        <div className="relative hidden sm:block">
+        <div className="relative">
           <Search size={16} className="absolute top-2.5 left-3 text-gray-500" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500 w-40 md:w-auto"
+            className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500"
           />
           {search && (
-            <div className="absolute top-12 left-0 w-full bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+            <div
+              className={`absolute top-12 left-0 w-full border rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto ${
+                isDark
+                  ? "bg-[#0D0716] border-purple-900/30"
+                  : "bg-white border-slate-200"
+              }`}
+            >
               {results.length === 0 ? (
-                <p className="text-gray-500 text-sm p-3">No projects found</p>
+                <p
+                  className={`text-sm p-3 ${isDark ? "text-gray-500" : "text-slate-500"}`}
+                >
+                  No projects found
+                </p>
               ) : (
                 results.map((project) => (
                   <div
@@ -241,7 +243,11 @@ const Topbar = ({onMenuClick}) => {
                       setSearch("");
                       setResults([]);
                     }}
-                    className="px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/10 cursor-pointer"
+                    className={`px-4 py-2 text-sm cursor-pointer ${
+                      isDark
+                        ? "text-gray-300 hover:bg-purple-600/10"
+                        : "text-slate-700 hover:bg-purple-50"
+                    }`}
                   >
                     {project.projectName}
                   </div>
@@ -255,7 +261,11 @@ const Topbar = ({onMenuClick}) => {
         <div ref={notifyRef} className="relative">
           <button
             onClick={() => setNotifyOpen(!notifyOpen)}
-            className="relative text-gray-400 hover:text-white"
+            className={`relative transition-colors duration-200 ${
+              isDark
+                ? "text-gray-400 hover:text-white"
+                : "text-slate-500 hover:text-slate-900"
+            }`}
           >
             <Bell size={20} />
 
@@ -267,7 +277,7 @@ const Topbar = ({onMenuClick}) => {
           </button>
 
           {notifyOpen && (
-            <div className="absolute z-10 -right-16 sm:right-0 mt-5 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
+            <div className="absolute z-10 right-0 mt-3 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
               <div className="px-4 py-3 border-b border-purple-900/20 flex justify-between">
                 <p className="text-sm text-gray-300">Notifications</p>
                 <span className="text-xs text-purple-400">
@@ -277,7 +287,9 @@ const Topbar = ({onMenuClick}) => {
 
               <div className="max-h-72 overflow-y-auto">
                 {sortedNotifications.length === 0 ? (
-                  <p className="text-center text-gray-500 py-6 text-sm">
+                  <p
+                    className={`text-center py-6 text-sm ${isDark ? "text-gray-500" : "text-slate-500"}`}
+                  >
                     No notifications
                   </p>
                 ) : (
@@ -288,13 +300,19 @@ const Topbar = ({onMenuClick}) => {
                       <div
                         key={n._id}
                         onClick={() => markAsRead(n._id)}
-                        className={`px-4 py-3 text-sm cursor-pointer border-b border-purple-900/10 hover:bg-purple-600/10
-                        ${
+                        className={`px-4 py-3 text-sm cursor-pointer border-b ${
+                          isDark
+                            ? "border-purple-900/10 hover:bg-purple-600/10"
+                            : "border-slate-200 hover:bg-purple-50"
+                        } ${
                           !n.read
-                            ? "text-white bg-purple-900/10"
-                            : "text-gray-400"
-                        }
-                        `}
+                            ? isDark
+                              ? "text-white bg-purple-900/10"
+                              : "text-slate-800 bg-purple-50"
+                            : isDark
+                              ? "text-gray-400"
+                              : "text-slate-500"
+                        }`}
                       >
                         <div className="flex items-start gap-3">
                           <div
@@ -307,7 +325,9 @@ const Topbar = ({onMenuClick}) => {
 
                           <div>
                             <p>{n.message}</p>
-                            <span className="block text-xs mt-1 text-gray-500">
+                            <span
+                              className={`block text-xs mt-1 ${isDark ? "text-gray-500" : "text-slate-500"}`}
+                            >
                               {timeAgo(n.createdAt)}
                             </span>
                           </div>
@@ -325,13 +345,19 @@ const Topbar = ({onMenuClick}) => {
         <div ref={dropdownRef} className="relative">
           <div
             onClick={() => setOpen(!open)}
-            className="flex items-center gap-3 cursor-pointer hover:bg-purple-600/10 px-3 py-2 rounded-lg"
+            className={`flex items-center gap-3 cursor-pointer px-3 py-2 rounded-lg transition-colors duration-200 ${
+              isDark ? "hover:bg-purple-600/10" : "hover:bg-purple-50"
+            }`}
           >
             <div
               onClick={handleAvatarClick}
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="w-8 h-8 rounded-full overflow-hidden bg-purple-600 flex items-center justify-center text-white text-sm"
+              className={`w-8 h-8 rounded-full overflow-hidden flex items-center justify-center text-sm ${
+                isDark
+                  ? "bg-purple-600 text-white"
+                  : "bg-purple-100 text-purple-700"
+              }`}
             >
               {imageSrc ? (
                 <img src={imageSrc} className="w-full h-full object-cover" />
@@ -340,9 +366,7 @@ const Topbar = ({onMenuClick}) => {
               )}
             </div>
 
-            <span className="hidden md:block text-sm text-gray-300">
-              {name}
-            </span>
+            <span className="text-sm text-gray-300">{name}</span>
           </div>
 
           <input
@@ -354,10 +378,20 @@ const Topbar = ({onMenuClick}) => {
           />
 
           {open && (
-            <div className="absolute right-0 mt-3 w-44 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-lg py-2">
+            <div
+              className={`absolute right-0 mt-3 w-44 border rounded-xl shadow-lg py-2 ${
+                isDark
+                  ? "bg-[#0D0716] border-purple-900/30"
+                  : "bg-white border-slate-200"
+              }`}
+            >
               <button
                 onClick={() => navigate("/dashboard/settings")}
-                className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-300 hover:bg-purple-600/10"
+                className={`flex items-center gap-2 w-full px-4 py-2 text-sm ${
+                  isDark
+                    ? "text-gray-300 hover:bg-purple-600/10"
+                    : "text-slate-700 hover:bg-purple-50"
+                }`}
               >
                 <Settings size={16} />
                 Settings

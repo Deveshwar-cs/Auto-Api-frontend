@@ -134,7 +134,7 @@ const ProjectForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 rounded-2xl bg-black text-white font-semibold text-lg hover:opacity-90 transition shadow-md disabled:opacity-50"
+          className="w-full py-4 rounded-2xl bg-purple-600 text-white font-semibold text-lg hover:bg-purple-700 transition shadow-md disabled:opacity-50"
         >
           {loading ? "Generating Backend..." : "Create Backend Project"}
         </button>

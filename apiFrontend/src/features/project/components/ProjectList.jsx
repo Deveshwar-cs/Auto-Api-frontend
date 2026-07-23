@@ -12,7 +12,7 @@ const ProjectList = () => {
 
   if (!projects.length) {
     return (
-      <p className="text-center text-gray-500 mt-10 text-lg">
+      <p className="text-center text-slate-600 dark:text-gray-500 mt-10 text-lg">
         No projects found.
       </p>
     );

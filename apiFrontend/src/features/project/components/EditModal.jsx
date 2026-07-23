@@ -20,8 +20,8 @@ const EditModal = ({project, onCancel, onSave}) => {
   };
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
-        <h3 className="text-2xl font-semibold mb-8 text-center">
+      <div className="bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 w-full max-w-2xl rounded-3xl shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
+        <h3 className="text-2xl font-semibold mb-8 text-center text-slate-900 dark:text-white">
           Edit Project
         </h3>
 
@@ -84,9 +84,11 @@ const EditModal = ({project, onCancel, onSave}) => {
           ].map((item) => (
             <label
               key={item.name}
-              className="flex items-center justify-between border border-gray-200 rounded-2xl px-5 py-4 bg-gray-50 hover:bg-gray-100 transition cursor-pointer"
+              className="flex items-center justify-between border border-slate-200 dark:border-purple-900/20 rounded-2xl px-5 py-4 bg-slate-50 dark:bg-[#241A40] hover:bg-slate-100 dark:hover:bg-purple-900/20 transition cursor-pointer"
             >
-              <span className="text-gray-700 font-medium">{item.label}</span>
+              <span className="text-slate-700 dark:text-gray-300 font-medium">
+                {item.label}
+              </span>
               <input
                 type="checkbox"
                 name={item.name}
@@ -102,14 +104,14 @@ const EditModal = ({project, onCancel, onSave}) => {
         <div className="flex justify-end gap-4 mt-10">
           <button
             onClick={onCancel}
-            className="px-5 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-100 transition"
+            className="px-5 py-2.5 border border-slate-200 dark:border-purple-900/20 rounded-xl bg-white dark:bg-[#241A40] text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-purple-900/20 transition"
           >
             Cancel
           </button>
 
           <button
             onClick={() => onSave(form)}
-            className="px-6 py-2.5 bg-black text-white rounded-xl hover:opacity-90 transition"
+            className="px-6 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition"
           >
             Save Changes
           </button>

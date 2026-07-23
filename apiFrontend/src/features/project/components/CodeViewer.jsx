@@ -13,12 +13,12 @@ const CodeViewer = ({file, onClose}) => {
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
       {/* Modal Container */}
-      <div className="w-[90%] h-[90%] bg-[#1B1330] border border-purple-900/20 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <div className="w-[90%] h-[90%] bg-white dark:bg-[#1B1330] border border-slate-200 dark:border-purple-900/20 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#241A40] border-b border-purple-900/20">
+        <div className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-[#241A40] border-b border-slate-200 dark:border-purple-900/20">
           {/* Fake File Tabs */}
           <div className="flex items-center gap-3">
-            <div className="px-4 py-1.5 bg-[#1B1330] rounded-lg text-sm text-white border border-purple-800/30">
+            <div className="px-4 py-1.5 bg-white dark:bg-[#1B1330] rounded-lg text-sm text-slate-800 dark:text-white border border-slate-200 dark:border-purple-800/30">
               {file.name}
             </div>
           </div>
@@ -27,12 +27,12 @@ const CodeViewer = ({file, onClose}) => {
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-purple-700/30 transition"
           >
-            <X size={18} className="text-gray-300" />
+            <X size={18} className="text-slate-600 dark:text-gray-300" />
           </button>
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center justify-end px-6 py-2 bg-[#1B1330] border-b border-purple-900/10">
+        <div className="flex items-center justify-end px-6 py-2 bg-white dark:bg-[#1B1330] border-b border-slate-200 dark:border-purple-900/10">
           <button
             onClick={handleCopy}
             className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 transition text-white"
@@ -43,7 +43,7 @@ const CodeViewer = ({file, onClose}) => {
         </div>
 
         {/* Code Section */}
-        <div className="flex-1 bg-[#0D0716] overflow-auto">
+        <div className="flex-1 bg-slate-50 dark:bg-[#0D0716] overflow-auto">
           <SyntaxHighlighter
             language="javascript"
             style={oneDark}
