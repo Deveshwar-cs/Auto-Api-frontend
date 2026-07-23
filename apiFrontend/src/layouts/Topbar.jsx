@@ -17,6 +17,7 @@ import {useState, useRef, useEffect} from "react";
 import useSettingStore from "../features/project/store/useSettingStore";
 import useNotificationStore from "../features/project/store/useNotificationStore";
 import useProjectStore from "../features/project/store/useProjectStore";
+import useTheme from "../hooks/useTheme";
 
 import socket from "../socket";
 
@@ -100,6 +101,8 @@ const Topbar = () => {
   const [notifyOpen, setNotifyOpen] = useState(false);
   const [preview, setPreview] = useState(null);
 
+  const isDark = useTheme();
+
   const dropdownRef = useRef(null);
   const notifyRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -158,6 +161,7 @@ const Topbar = () => {
     );
     setResults(filtered);
   }, [search, projects]);
+
   /* socket notifications */
   useEffect(() => {
     const handleNewNotification = (notification) => {
@@ -200,15 +204,26 @@ const Topbar = () => {
   }, [preview]);
 
   const imageSrc = preview || profilePhoto || null;
-  const isDark = theme === "dark";
 
   const sortedNotifications = [...notifications].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );
 
   return (
-    <header className="h-16 bg-[#0D0716] border-b border-purple-900/20 flex items-center justify-between px-6">
-      <h2 className="text-lg font-semibold text-gray-200">{getTitle()}</h2>
+    <header
+      className={`h-16 border-b flex items-center justify-between px-6 ${
+        isDark
+          ? "bg-[#0D0716] border-purple-900/20"
+          : "bg-white border-slate-200"
+      }`}
+    >
+      <h2
+        className={`text-lg font-semibold ${
+          isDark ? "text-gray-200" : "text-slate-800"
+        }`}
+      >
+        {getTitle()}
+      </h2>
 
       <div className="flex items-center gap-3 md:gap-5">
         {/* Search */}
@@ -218,7 +233,11 @@ const Topbar = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className="bg-[#151026] text-sm pl-9 pr-3 py-2 rounded-lg outline-none border border-purple-900/20 focus:border-purple-500"
+            className={`text-sm pl-9 pr-3 py-2 rounded-lg outline-none border focus:border-purple-500 ${
+              isDark
+                ? "bg-[#151026] border-purple-900/20 text-gray-200"
+                : "bg-slate-100 border-slate-200 text-slate-800"
+            }`}
           />
           {search && (
             <div
@@ -277,9 +296,23 @@ const Topbar = () => {
           </button>
 
           {notifyOpen && (
-            <div className="absolute z-10 right-0 mt-3 w-80 bg-[#0D0716] border border-purple-900/30 rounded-xl shadow-xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-purple-900/20 flex justify-between">
-                <p className="text-sm text-gray-300">Notifications</p>
+            <div
+              className={`absolute z-10 right-0 mt-3 w-80 border rounded-xl shadow-xl overflow-hidden ${
+                isDark
+                  ? "bg-[#0D0716] border-purple-900/30"
+                  : "bg-white border-slate-200"
+              }`}
+            >
+              <div
+                className={`px-4 py-3 border-b flex justify-between ${
+                  isDark ? "border-purple-900/20" : "border-slate-200"
+                }`}
+              >
+                <p
+                  className={`text-sm ${isDark ? "text-gray-300" : "text-slate-700"}`}
+                >
+                  Notifications
+                </p>
                 <span className="text-xs text-purple-400">
                   {notifications.length}
                 </span>
@@ -366,7 +399,11 @@ const Topbar = () => {
               )}
             </div>
 
-            <span className="text-sm text-gray-300">{name}</span>
+            <span
+              className={`text-sm ${isDark ? "text-gray-300" : "text-slate-700"}`}
+            >
+              {name}
+            </span>
           </div>
 
           <input

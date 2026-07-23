@@ -1,24 +1,39 @@
 import {NavLink} from "react-router-dom";
 import {LayoutDashboard, Folder, Settings, X} from "lucide-react";
 import useSettingStore from "../features/project/store/useSettingStore";
+import useTheme from "../hooks/useTheme";
 
-const Sidebar = () => {
+const Sidebar = ({onClose}) => {
   const name = useSettingStore((state) => state.name);
   const profilePhoto = useSettingStore((state) => state.profilePhoto);
 
-  const isDark = theme === "dark";
+  const isDark = useTheme();
 
   return (
-    <aside className="w-64 bg-[#0B0513] border-r border-purple-900/20 flex flex-col">
+    <aside
+      className={`w-64 border-r flex flex-col ${
+        isDark
+          ? "bg-[#0B0513] border-purple-900/20"
+          : "bg-white border-slate-200"
+      }`}
+    >
       {/* Logo */}
-      <div className="h-16 flex items-center px-6 border-b border-purple-900/20">
+      <div
+        className={`h-16 flex items-center px-6 border-b ${
+          isDark ? "border-purple-900/20" : "border-slate-200"
+        }`}
+      >
         <h1 className="text-xl font-bold tracking-wider text-purple-400">
           AUTO API
         </h1>
       </div>
 
       {/* User Profile */}
-      <div className="flex items-center gap-3 px-6 py-5 border-b border-purple-900/20">
+      <div
+        className={`flex items-center gap-3 px-6 py-5 border-b ${
+          isDark ? "border-purple-900/20" : "border-slate-200"
+        }`}
+      >
         <div className="w-10 h-10 rounded-full overflow-hidden bg-purple-600 flex items-center justify-center text-white font-semibold">
           {profilePhoto ? (
             <img
@@ -32,8 +47,18 @@ const Sidebar = () => {
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm text-gray-200 font-medium">{name}</span>
-          <span className="text-xs text-gray-500">Developer</span>
+          <span
+            className={`text-sm font-medium ${
+              isDark ? "text-gray-200" : "text-slate-800"
+            }`}
+          >
+            {name}
+          </span>
+          <span
+            className={`text-xs ${isDark ? "text-gray-500" : "text-slate-500"}`}
+          >
+            Developer
+          </span>
         </div>
       </div>
 
@@ -43,23 +68,35 @@ const Sidebar = () => {
           to="/dashboard"
           icon={<LayoutDashboard size={18} />}
           label="Overview"
+          isDark={isDark}
+          onClick={onClose}
         />
 
         <NavItem
           to="/dashboard/projects"
           icon={<Folder size={18} />}
           label="Projects"
+          isDark={isDark}
+          onClick={onClose}
         />
 
         <NavItem
           to="/dashboard/settings"
           icon={<Settings size={18} />}
           label="Settings"
+          isDark={isDark}
+          onClick={onClose}
         />
       </nav>
 
       {/* Footer */}
-      <div className="p-4 text-xs text-gray-500 border-t border-purple-900/20 flex justify-between">
+      <div
+        className={`p-4 text-xs border-t flex justify-between ${
+          isDark
+            ? "text-gray-500 border-purple-900/20"
+            : "text-slate-500 border-slate-200"
+        }`}
+      >
         <span>v1.0.0</span>
         <span className="text-purple-400">AUTO API</span>
       </div>
@@ -67,7 +104,7 @@ const Sidebar = () => {
   );
 };
 
-const NavItem = ({to, icon, label}) => {
+const NavItem = ({to, icon, label, isDark, onClick}) => {
   return (
     <NavLink
       to={to}
